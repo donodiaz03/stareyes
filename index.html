@@ -1,271 +1,293 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
-		<title>Star Eyes</title>
-		<link rel="stylesheet" href="styles.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-	</head>
-	<body>
-		<header>
-			<div class="container-hero">
-				<div class="container hero">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Eyes Festival</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Iconos para redes sociales y otros elementos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
 
-					<div class="container-logo">
-						<h1 class="logo"><a href="/">BIENVENIDOS</a></h1>
-					</div>
+    <!-- Ventana emergente de Redes Sociales -->
+    <div id="social-popup" class="social-popup-overlay">
+        <div class="social-popup-content">
+            <button class="close-popup-btn">&times;</button>
+            <h2>¡Síguenos en nuestras redes!</h2>
+            <p>No te pierdas nuestras últimas noticias, eventos y sets.</p>
+            <a href="https://linktr.ee/stareyesfestival" target="_blank" class="social-link-btn">
+                <i class="fas fa-share-alt"></i> SIGUENOS
+            </a>
+        </div>
+    </div>
 
-					
-				</div>
-			</div>
+    <!-- Encabezado de la página -->
+    <header class="header">
+        <div class="container">
+            <a href="#inicio" class="logo-link">
+                <img src="img/STAREYES.png" alt="Logo de Su Equipo de DJs" class="logo-img">
+            </a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#inicio">INICIO</a></li>
+                    <li><a href="#djs">DJs</a></li>
+                    <li><a href="#eventos">EVENTOS</a></li>
+                    <li><a href="#galeria">GALERÍA</a></li>
+                    <li><a href="#contacto">CONTACTO</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-			<div class="container-navbar">
-				<nav class="navbar container">
-					<i id="menu-toggle" class="fa-solid fa-bars"></i>
-                	<ul id="menu" class="menu">
-						<li><a href="#">Inicio</a></li>
-						<li><a href="#artistas">Artistas</a></li>
-						<li><a href="#galeria">Galeria</a></li>
-						<li><a href="#eventos">Eventos</a></li>
-						<li><a href="#contacto">Contacto</a></li>
-					</ul>
-				</nav>
-			</div>
-		</header>
+    <!-- Sección de Inicio (Hero) -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <img src="img/LOGOSE.png" alt="Logo Principal del Equipo de DJs" class="hero-logo-img">
+                <p>Somos un colectivo de DJs apasionados por la música electrónica, listos para hacer vibrar cualquier escenario. Prepárate para una experiencia sonora inolvidable.</p>
+                <a href="#eventos" class="btn primary-btn">Próximos Eventos</a>
+            </div>
+        </div>
+    </section>
 
-		<section class="banner">
-			<!--<div id="nostros" class="content-banner">
-				<img src="img2/STAR EYES.png"/>
-				<img class ="img2" src="img2/LOGOSE.png"/>	
-			</div>-->
-		</section>
+    <!-- Sección de DJs -->
+    <section id="djs" class="djs-section">
+        <div class="container">
+            <h2 class="section-title">Nuestros DJs</h2>
+            <div class="dj-grid">
+                
+                <!-- DJ 1 -->
+                <div class="dj-card">
+                    <img src="img/LOGOrs.png" alt="DJ Alpha" class="dj-image">
+                    <h3>RysonBl3nd</h3>
+                    <p>...</p>
+                    <a href="https://linktr.ee/rysonbl3nd?utm_source=linktree_profile_share&ltsid=f0e2e2b3-cdd4-4040-b5de-b9b4c9915a2a" target="_blank" class="btn secondary-btn">
+                        <i class="fas fa-link"></i> Síguelo
+                    </a>
+                </div>
+                
+                <!-- DJ 2 -->
+                <div class="dj-card">
+                    <img src="img/LEO.jpeg" alt="DJ Beta" class="dj-image">
+                    <h3>DJ LEO </h3>
+                    <p>...</p>
+                    <a href="https://linktr.ee/djbeta" target="_blank" class="btn secondary-btn">
+                        <i class="fas fa-link"></i> Síguelo
+                    </a>
+                </div>
+                
+                <!-- DJ 3 -->
+                <div class="dj-card">
+                    <img src="img/NAII.jpeg" alt="DJ Gamma" class="dj-image">
+                    <h3>NAII</h3>
+                    <p>...</p>
+                    <a href="https://linktr.ee/djgamma" target="_blank" class="btn secondary-btn">
+                        <i class="fas fa-link"></i> Síguela
+                    </a>
+                </div>
+                
+                <!-- DJ 4 -->
+                <div class="dj-card">
+                    <img src="img/NEOX.jpeg" alt="DJ NEOX" class="dj-image">
+                    <h3>NEOX</h3>
+                    <p>...</p>
+                    <a href="https://linktr.ee/dj4" target="_blank" class="btn secondary-btn">
+                        <i class="fas fa-link"></i> Síguelo
+                    </a>
+                </div>
 
-		<main class="main-content">
-			<section class="container container-features">
-				<div class="card-feature">
-					<div class="feature-content">
-						<p>Somos un equipo de DJ's con la meta de llegar a grandes festivales
-						   asi como EDC MX, Tomorrowland, ULTRA MUSIC FESTIVAL, entro otros.</p>
-						</p>
-					</div>
-				</div>
-				
-			</section>
+                <!-- DJ 5 -->
+                <div class="dj-card">
+                    <img src="img/S0IK.jpg" alt="DJ S0IK" class="dj-image">
+                    <h3>S0IK</h3>
+                    <p>...</p>
+                    <a href="https://linktr.ee/dj4" target="_blank" class="btn secondary-btn">
+                        <i class="fas fa-link"></i> Síguelo
+                    </a>
+                </div>
 
+                <!-- DJ 6 -->
+                <div class="dj-card">
+                    <img src="img/RICHY BABY.jpeg" alt="DJ RICHY" class="dj-image">
+                    <h3>RICHY BABY</h3>
+                    <p>...</p>
+                    <a href="https://linktr.ee/dj4" target="_blank" class="btn secondary-btn">
+                        <i class="fas fa-link"></i> Síguelo
+                    </a>
+                </div>
 
+                <!-- DJ 7 -->
+                <div class="dj-card">
+                    <img src="img/ALEXANDER.jpeg" alt="DJ ALEXANDER" class="dj-image">
+                    <h3>DJ ALEXANDER</h3>
+                    <p>...</p>
+                </div>
 
-			<section id="artistas" class="container top-products">
-				<h1 class="heading-1" >ARTISTAS</h1>
+            </div>
+        </div>
+    </section>
 
-				<div class="container-options">
-					
-					<span>QUE SON PARTE DEL EQUIPO DE STAR EYES, CONOCE A CADA UNO DE ELLOS</span>
-					
-				</div>
+    <!-- Sección de Próximos Eventos -->
+    <section id="eventos" class="events-section">
+        <div class="container">
+            <h2 class="section-title">Próximos Eventos</h2>
+            <div class="event-list">
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="day">15</span>
+                        <span class="month">SEP</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>UTOPIA IXTAPALCALLI</h3>
+                        <p><strong>Lugar:</strong> Iztapalapa, Ciudad de México</p>
+                        <p><strong>Hora:</strong> Pronto</p>
+                        <p>Mas información próximamente</p>
+                        <a href="#" target="_blank" class="btn tertiary-btn">Más Info / Boletos</a>
+                        <a href="assets/qr.pdf" target="_blank" class="btn tertiary-btn flyer-btn">
+                                <i class="fas fa-file-pdf"></i> Ver Flyer
+                        </a>
+                    </div>
+                </div>
+                <!-- Agrega más eventos aquí -->
+            </div>
+        </div>
+    </section>
 
-				<div class="container-products">
-					<!-- Producto 1 -->
-					<div class="card-product">
-						<div class="container-img">
-							<img src="img2/LOGOrs.png" />
-							
-						</div>
-						<div class="content-card-product">
-							<div class="stars">
-							</div>
-							<h3>RYSONBL3ND</h3>
-							
-						</div>
-					</div>
-					<!-- DJ 2 -->
-					<div class="card-product">
-						<div class="container-img">
-							<img
-								src="img2/LEO.jpeg"/>
-							
-						</div>
-						<div class="content-card-product">
-							<div class="stars">
-							</div>
-							<h3>DJ LEO</h3>
-						</div>
-					</div>
-					<!-- DJ 3 -->
-					<div class="card-product">
-						<div class="container-img">
-							<img
-								src="img2/RICHY BABY.jpg"
-								alt="Cafe incafe-ingles.jpg"
-							/>
-							
-						</div>
-						<div class="content-card-product">
-							<div class="stars">
-							</div>
-							<h3>RICHY BABY</h3>
-						</div>
-					</div>
-					
-					
-					<div class="card-product">
-						<div class="container-img">
-							<img
-								src="img2/NEOX.jpeg"
-								alt="Cafe incafe-ingles.jpg"
-							/>
-							
-						</div>
-						<div class="content-card-product">
-							<div class="stars">
-							</div>
-							<h3>NEOX</h3>
-						</div>
-					</div>
+    <!-- Sección de Galería -->
+    <section id="galeria" class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Galería</h2>
+            <div class="gallery-tabs">
+                <button class="tab-btn active" data-tab="fotos">Fotos</button>
+                <button class="tab-btn" data-tab="videos">Videos</button>
+            </div>
 
-					<div class="card-product">
-						<div class="container-img">
-							<img
-								src="img2/ALEXANDER.jpeg"
-							/>
-							
-						</div>
-						<div class="content-card-product">
-							<div class="stars">
-							</div>
-							<h3>DJ ALEXANDER</h3>
-						</div>
-					</div>
+            <div id="fotos" class="gallery-content active">
+                <div class="photo-grid">
+                    <!-- MODIFICADO: Cada imagen se convierte en un carrusel -->
+                    <div class="photo-carousel-item">
+                        <div class="carousel-images-wrapper">
+                            <img src="eventos/Terraza/ALEX.jpg" alt="Evento Pasado 1 Foto A">
+                            <img src="eventos/Terraza/NAII.jpg" alt="Evento Pasado 1 Foto B">
+                            <img src="eventos/Terraza/ALEX.jpg" alt="Evento Pasado 1 Foto A">
+                        </div>
+                    </div>
 
-					<!--S0IK -->
-					<div class="card-product">
-						<div class="container-img">
-							<img
-								src="img2/S0IK.jpg"/>
-							
-						</div>
-						<div class="content-card-product">
-							<div class="stars">
-							</div>
-							<h3>S0IK</h3>
-						</div>
-					</div>
-			</section>
+                    <div class="photo-carousel-item">
+                        <div class="carousel-images-wrapper">
+                            <img src="eventos/Terraza/RYSON.jpg" alt="Evento Pasado 1 Foto A">
+                            <img src="eventos/Terraza/S0IK.jpg" alt="Evento Pasado 1 Foto B">
+                            <img src="eventos/Terraza/RYSON.jpg" alt="Evento Pasado 1 Foto A">
+                        </div>
+                    </div>
 
-			<section id="galeria" class="gallery-section">
-				<h1 class="heading-1">GALERIA</h1>
-				
-				<div class="gallery">
-					<img src="eventos/leo.jpeg" alt="Gallery Img1" class="gallery-img-1" />
-					<img src="eventos/neox.jpeg" alt="Gallery Img2" class="gallery-img-2" />
-					<img src="eventos/richy.jpeg" alt="Gallery Img3" class="gallery-img-3" />
-					<img src="img2/CDJ.jpg" alt="Gallery Img4" class="gallery-img-4" />
-					<img src="img2/DJALEX.JPG" alt="Gallery Img5" class="gallery-img-5" />
-				</div>
-			</section>
+                    <div class="photo-carousel-item">
+                        <div class="carousel-images-wrapper">
+                            <img src="eventos/zocalo/EQUIPOSE.jpg" alt="Evento Pasado 1 Foto A">
+                            <img src="eventos/zocalo/ALEXNAII.jpg" alt="Evento Pasado 1 Foto B">
+                            <img src="eventos/zocalo/EQUIPOSE.jpg" alt="Evento Pasado 1 Foto A">
+                        </div>
+                    </div>
 
-			<section id="eventos" class="container blogs">
-				<h1 class="heading-1">PROXIMOS EVENTOS</h1>
-				<div class="container-blogs">
-					<div class="card-blog">
-						<div class="container-img2">
-							<img src="img2/UTOPIA.jpg" alt="Imagen Blog 1" />
-							<div class="button-group-blog">
-								<span>
-									<i class="fa-solid fa-link"></i>
-								</span>
-							</div>
-						</div>
-						<div class="content-blog">
-							<h3>PARQUE CUITLAHUAC </h3>
-							<span>17 DE MAYO DE 2025</span>
-							<p>SIN INFORMACIÓN</p>
-							<div class="btn-read-more">VER FLYER Y más</div>
-						</div>
-					</div>
-				</div>
-				
-			</section>
+                    <div class="photo-carousel-item">
+                        <div class="carousel-images-wrapper">
+                            <img src="eventos/barco/RysonBarco.jpg" alt="Evento Pasado 1 Foto A">
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
 
-			<section id="eventos" class="container blogs">
-				<h1 class="heading-1">EVENTOS PASADOS</h1>
-				<div class="container-blogs">
-					<div class="card-blog">
-						<div class="container-img2">
-							<img src="img2/UTOPIA.jpg" alt="Imagen Blog 1" />
-							<div class="button-group-blog">
-								<span>
-									<i class="fa-solid fa-link"></i>
-								</span>
-							</div>
-						</div>
-						<div class="content-blog">
-							<h3>UTOPIA IXTAPALCALLI IZTAPALAPA</h3>
-							<p>SIN INFORMACIÓN</p>
-							<div class="btn-read-more">Leer más</div>
-						</div>
-					</div>
-				</div>
-			</section> 
-			
+            <div id="videos" class="gallery-content">
+                <div class="video-grid">
+                    <!-- Ejemplo de video local (asegúrate de tener los archivos en tu carpeta 'videos') -->
+                    <div class="video-item">
+                        <video controls poster="img/LOGOSE.png">
+                            <source src="eventos/Terraza/NAII.mp4" type="video/mp4">
+                            Tu navegador no soporta el tag de video.
+                        </video>
+                        <p>NAII Terraza UTOPIA</p>
+                    </div>
+                    <!-- Agrega más videos aquí -->
+                    <div class="video-item">
+                        <video controls poster="img/LOGOSE.png">
+                            <source src="eventos/Terraza/RYSON.mp4" type="video/mp4">
+                            Tu navegador no soporta el tag de video.
+                        </video>
+                        <p>RysonBl3nd Terraza UTOPIA</p>
+                    </div>
 
-			
+                    <div class="video-item">
+                        <video controls poster="img/LOGOSE.png">
+                            <source src="eventos/barco/LEOBARCO.mp4" type="video/mp4">
+                            Tu navegador no soporta el tag de video.
+                        </video>
+                        <p>DJ LEO Barco UTOPIA</p>
+                    </div>
 
-		</main>
+                    <div class="video-item">
+                        <video controls poster="img/LOGOSE.png">
+                            <source src="eventos/barco/NEOXBARCO.mp4" type="video/mp4">
+                            Tu navegador no soporta el tag de video.
+                        </video>
+                        <p>NEOX Barco UTOPIA</p>
+                    </div>
 
-		<footer id="contacto" class="footer">
-			<div class="container container-footer">
-				<div class="menu-footer">
-					<div class="contact-info">
-						<p class="title-footer">Información de Contacto</p>
-						<ul>
-							<li>
-								Dirección: 
-							</li>
-							<li>Teléfono: </li>
-							<li>EmaiL: </li>
-						</ul>
-						<div class="social-icons">
-							<a href="https://www.facebook.com/profile.php?id=61572704121165" class="facebook" >
-								<i class="fa-brands fa-facebook-f"></i>
-							</a>
-							<a href="https://www.instagram.com/star_eyes_festival/" class="instagram">
-								<i class="fa-brands fa-instagram"></i>
-							</a>
-							<a href="https://www.tiktok.com/@hojosdeestrella" class="tiktok">
-								<i class="fa-brands fa-tiktok"></i>
-							</a>
-						</div>
-					</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-					<div class="information">
-						<p class="title-footer">Información</p>
-						<ul>
-							<li><a href="#">Acerca de Nosotros</a></li>
-							<li><a href="#">Contactános</a></li>
-						</ul>
-					</div>
+    <!-- Sección de Contacto -->
+    <section id="contacto" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Contáctanos</h2>
+            <!-- MODIFICADO: Estructura de la sección de contacto para un formulario más pequeño y opciones directas -->
+            <p class="contact-intro-text">Estamos listos para tu próximo evento. Elige cómo prefieres contactarnos:</p>
 
-				</div>
+            <div class="contact-options-grid">
+                <!-- Opción de Formulario Compacto -->
+                <div class="contact-form-container">
+                    <h3>Envíanos un Mensaje Rápido</h3>
+                    <form class="contact-form">
+                        <!-- MODIFICADO: Eliminado el div con clase 'form-group' -->
+                        <input type="text" placeholder="Tu Nombre" required>
+                        <input type="email" placeholder="Tu Correo" required>
+                        <textarea placeholder="Tu Mensaje" rows="4" required></textarea>
+                        <button type="submit" class="btn primary-btn">Enviar</button>
+                    </form>
+                </div>
 
-				<div class="copyright">
-					<p>
-						Desarrollado por Donovan Eduardo Contreras Diaz &copy; 2025
-					</p>
-				</div>
-			</div>
-		</footer>
+                <!-- Opciones de Contacto Directo -->
+                <div class="direct-contact-info">
+                    <h3>Otras Formas de Contacto</h3>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:info@suequipodjs.com" class="contact-link">info@suequipodjs.com</a></p>
+                    <p><i class="fas fa-phone-alt"></i> Teléfono: <a href="tel:+525512345678" class="contact-link">+52 55 1234 5678</a></p>
+                    <a href="https://linktr.ee/stareyesfestival" target="_blank" class="btn secondary-btn contact-link-button">
+                        <i class="fas fa-share-alt"></i> !SIGUENOS!
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-		<script src="https://kit.fontawesome.com/81581fb069.js" crossorigin="anonymous"></script>
-    	<script>
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            document.getElementById('menu').classList.toggle('show');
-        });
-    	</script>
-		
-	</body>
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Star Eyes Festival.</p>
+            <p>Todos los derechos reservados.</p>
+            <div class="social-icons">
+                <a href="https://facebook.com/suequipodjs" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/suequipodjs" target="_blank"><i class="fab fa-instagram"></i></a>
+            <p>DESARROLADO POR</p>
+            <p>ING. DONOVAN EDUARDO CONTRERAS DIAZ</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para la funcionalidad de la ventana emergente y la galería -->
+    <script src="script.js"></script>
+</body>
 </html>
