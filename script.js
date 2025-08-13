@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- Funcionalidad de la Ventana Emergente (Pop-up) ---
     const socialPopup = document.getElementById('social-popup');
@@ -85,4 +86,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
 });
-
