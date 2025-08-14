@@ -1,0 +1,201 @@
+/* Colores y estilos únicos para DJ Alpha */
+.dj-alpha-body {
+    /* Aquí puedes definir un esquema de color ligeramente diferente si lo deseas */
+    /* Por ejemplo: --primary-color-alpha: #e040fb; */
+}
+
+/* Sección Hero específica del DJ */
+.dj-hero-alpha {
+    /* Fondo con gradiente animado para "colores en movimiento" */
+    background: linear-gradient(135deg, var(--darker-bg) 0%, var(--primary-color) 50%, var(--dark-bg) 100%);
+    background-size: 400% 400%; /* Tamaño grande para permitir el movimiento */
+    animation: gradientMove 15s ease infinite; /* Animación de movimiento del gradiente */
+    height: 70vh; /* Un poco menos alto que el hero principal */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    color: var(--text-color);
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.dj-hero-content {
+    z-index: 2;
+    padding: 20px;
+}
+
+.dj-profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid var(--secondary-color); /* Borde llamativo */
+    box-shadow: 0 0 0 10px rgba(255, 64, 129, 0.2), 0 0 30px rgba(0, 188, 212, 0.5); /* Doble sombra para profundidad */
+    margin-bottom: 25px;
+    transition: transform 0.3s ease;
+}
+
+.dj-profile-img:hover {
+    transform: scale(1.05) rotate(5deg); /* Pequeña rotación al pasar el ratón */
+}
+
+.dj-hero-content h1 {
+    font-size: 4.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-weight: 900;
+    text-shadow: 0 0 25px rgba(0, 188, 212, 0.8); /* Sombra para resaltar */
+    animation: pulseGlow 2s infinite alternate; /* Animación de brillo */
+}
+
+@keyframes pulseGlow {
+    from {
+        text-shadow: 0 0 15px var(--primary-color), 0 0 25px var(--primary-color);
+    }
+    to {
+        text-shadow: 0 0 25px var(--primary-color), 0 0 40px var(--hover-color);
+    }
+}
+
+.dj-hero-content .tagline {
+    font-size: 1.6rem;
+    color: var(--light-text-color);
+    margin-bottom: 30px;
+}
+
+.dj-social-links {
+    margin-top: 20px;
+}
+
+.dj-social-links a {
+    color: var(--text-color);
+    font-size: 2.5rem;
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.dj-social-links a:hover {
+    color: var(--secondary-color);
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* Estilos generales para las secciones de DJ */
+.dj-section {
+    padding: 80px 0; /* Un poco menos de padding que secciones principales */
+    text-align: center;
+}
+
+.about-section {
+    background-color: var(--darker-bg);
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    text-align: justify;
+    color: var(--light-text-color);
+}
+
+.about-content strong {
+    color: var(--primary-color);
+}
+
+.sets-section,
+.tracks-section {
+    background-color: var(--dark-bg);
+    border-top: 1px solid var(--border-color);
+}
+
+.soundcloud-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.soundcloud-embed {
+    background-color: var(--darker-bg);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.soundcloud-embed h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.soundcloud-embed iframe {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 5px; /* Bordes redondeados para el reproductor */
+}
+
+.soundcloud-embed p {
+    font-size: 0.95rem;
+    color: var(--light-text-color);
+}
+
+/* Secciones de eventos específicas del DJ, reutilizando estilos existentes */
+.dj-section.events-section .event-list {
+    max-width: 700px; /* Un poco más centrado para eventos individuales */
+    margin: 0 auto;
+}
+
+/* Responsividad para la página del DJ */
+@media (max-width: 768px) {
+    .dj-hero-content h1 {
+        font-size: 3rem;
+    }
+    .dj-hero-content .tagline {
+        font-size: 1.3rem;
+    }
+    .dj-profile-img {
+        width: 150px;
+        height: 150px;
+    }
+    .soundcloud-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .dj-hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .dj-hero-content .tagline {
+        font-size: 1.1rem;
+    }
+    .dj-social-links a {
+        font-size: 2rem;
+        margin: 0 10px;
+    }
+    .dj-profile-img {
+        width: 120px;
+        height: 120px;
+    }
+    .about-content {
+        font-size: 1rem;
+    }
+}
