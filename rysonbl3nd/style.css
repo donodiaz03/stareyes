@@ -1,0 +1,287 @@
+/* Importa la fuente 'Inter' de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+/* Estilos Generales y Reset Básico */
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth; /* Desplazamiento suave para los enlaces */
+}
+
+/* Estilos de la barra de navegación */
+header {
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Contenedor del fondo animado en la sección hero */
+.animated-background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Múltiples degradados para un efecto de color complejo */
+    background: linear-gradient(45deg, #1A202C, #2D3748, #4A5568, #1A202C),
+                linear-gradient(-45deg, #4299E1, #38B2AC, #667EEA, #4299E1);
+    background-size: 400% 400%; /* Tamaño más grande para permitir el movimiento */
+    animation: gradientShift 15s ease infinite alternate; /* Animación de movimiento */
+    z-index: 0; /* Asegura que esté detrás del contenido */
+    opacity: 0.8; /* Ligeramente transparente para no distraer */
+}
+
+/* Animación de los degradados de fondo */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%, 100% 50%;
+    }
+    50% {
+        background-position: 100% 50%, 0% 50%;
+    }
+    100% {
+        background-position: 0% 50%, 100% 50%;
+    }
+}
+
+/* Contenedor de la foto de perfil del DJ */
+.profile-photo-container {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%; /* Circular */
+    overflow: hidden;
+    position: relative;
+    z-index: 1; /* Asegura que esté por encima del fondo animado */
+    box-shadow: 0 0 40px rgba(66, 153, 225, 0.7); /* Sombra para resaltar */
+}
+
+.profile-photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Animaciones de entrada (fade-in-up) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0; /* Oculto inicialmente */
+}
+
+/* Retrasos para las animaciones */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Animaciones de entrada (slide-in-right) */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+/* Animaciones de entrada (slide-in-left) */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+/* Estilos de la galería - Collage Grid */
+.collage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adaptable automáticamente */
+    gap: 1rem; /* Espacio entre los elementos */
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease-in-out;
+}
+
+.gallery-item img,
+.gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease-in-out;
+}
+
+.gallery-item:hover img,
+.gallery-item:hover video {
+    transform: scale(1.05); /* Zoom ligero al pasar el ratón */
+}
+
+.gallery-item .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+}
+
+.overlay span {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos del Modal de Galería */
+#gallery-modal {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    background-color: #1a202c; /* Fondo oscuro similar al body */
+    border-radius: 0.75rem;
+    padding: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 90%;
+    max-height: 90vh; /* Para que no ocupe toda la altura en pantallas pequeñas */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content img,
+.modal-content video {
+    max-width: 100%;
+    max-height: calc(90vh - 2rem); /* Ajusta para el padding del modal */
+    object-fit: contain;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2.5rem;
+    color: white;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.close-modal:hover {
+    color: #ef4444; /* Rojo al pasar el ratón */
+}
+
+
+/* --- Responsive Design --- */
+
+/* Teléfonos (hasta 767px) */
+@media (max-width: 767px) {
+    header nav ul {
+        flex-direction: column;
+        display: none; /* Oculta el menú por defecto para móviles */
+        width: 100%;
+        background-color: rgba(17, 24, 39, 0.95); /* Gray-900 */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1rem 0;
+        text-align: center;
+        border-top: 1px solid rgba(55, 65, 81, 0.5); /* Gray-700 */
+    }
+
+    header nav ul.open {
+        display: flex; /* Muestra el menú cuando está abierto */
+    }
+
+    header nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    /* Ocultar elementos de menú si se usa un botón de hamburguesa */
+    /* Aquí se necesitaría JavaScript para un botón de hamburguesa */
+
+    #hero h1 {
+        font-size: 3rem; /* Tamaño de fuente más pequeño para títulos en móviles */
+    }
+
+    #hero p {
+        font-size: 1.25rem;
+    }
+
+    #hero .space-x-6 {
+        flex-direction: column;
+        gap: 1rem; /* Espacio vertical entre botones */
+    }
+
+    .profile-photo-container {
+        width: 200px; /* Tamaño más pequeño de la foto en móviles */
+        height: 200px;
+    }
+
+    h2 {
+        font-size: 2.5rem !important; /* Más pequeño para subtítulos de sección */
+    }
+
+    .collage-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Columnas más pequeñas */
+    }
+}
+
+/* Tablets (768px a 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    #hero h1 {
+        font-size: 4.5rem;
+    }
+
+    .collage-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+/* Escritorio (1024px en adelante) */
+@media (min-width: 1024px) {
+    /* Los estilos por defecto ya están optimizados para escritorio */
+}
