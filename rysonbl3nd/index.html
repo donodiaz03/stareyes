@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ [Tu Nombre] - Música Electrónica</title>
+    <!-- Enlace a Google Fonts para la fuente 'Inter' -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Enlace a Tailwind CSS para utilidades básicas (importado desde CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Enlace a tu archivo CSS personalizado -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-900 text-white font-inter">
+    <!-- Barra de Navegación -->
+    <header class="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-90 z-50 shadow-lg">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-3xl font-bold text-teal-400 hover:text-teal-300 transition-colors duration-300">DJ [Tu Nombre]</a>
+            <ul class="flex space-x-6">
+                <li><a href="#about" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Sobre Mí</a></li>
+                <li><a href="#music" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Música</a></li>
+                <li><a href="#gallery" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Galería</a></li>
+                <li><a href="#contact" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección Principal (Hero) con la foto del DJ y el fondo animado -->
+    <section id="hero" class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+        <!-- Contenedor del fondo animado (gestionado por CSS) -->
+        <div class="animated-background-container"></div>
+
+        <!-- Contenido principal del hero -->
+        <div class="relative z-10 flex flex-col items-center">
+            <div class="profile-photo-container rounded-full overflow-hidden shadow-2xl border-4 border-teal-400 transform transition-transform duration-500 hover:scale-105">
+                <!-- Asegúrate de reemplazar 'dj-profile.jpg' con la ruta de tu foto de perfil -->
+                <img src="https://placehold.co/300x300/10B981/FFFFFF?text=DJ+Foto" alt="Foto de perfil del DJ" class="w-full h-full object-cover">
+            </div>
+            <h1 class="mt-8 text-6xl font-extrabold leading-tight drop-shadow-lg animate-fade-in-up">
+                [Tu Nombre de DJ]
+            </h1>
+            <p class="mt-4 text-2xl font-light text-gray-300 animate-fade-in-up delay-100">
+                Llevando el ritmo de la música electrónica a tus oídos.
+            </p>
+            <div class="mt-10 space-x-6">
+                <a href="#music" class="inline-block bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+                    Escucha Mi Música
+                </a>
+                <a href="#contact" class="inline-block bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+                    Contáctame
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Sobre Mí -->
+    <section id="about" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-5xl font-bold mb-12 text-teal-400 animate-slide-in-right">Sobre Mí</h2>
+            <div class="max-w-3xl mx-auto text-lg leading-relaxed text-gray-300 animate-fade-in-up delay-200">
+                <p class="mb-6">
+                    Soy [Tu Nombre de DJ], un productor y DJ apasionado por la música electrónica, especializado en géneros como el House, Techno y Progressive Trance. Mi viaje musical comenzó en [Año], y desde entonces, me he dedicado a explorar y fusionar sonidos para crear experiencias únicas en cada set.
+                </p>
+                <p class="mb-6">
+                    He tenido el placer de tocar en [Menciona algunos lugares o eventos, ej: clubes locales, festivales de música electrónica] y de compartir escenario con [Menciona algunos artistas si aplica]. Mi objetivo es siempre conectar con la audiencia a través de la energía de la música, llevando a cada pista de baile una atmósfera inolvidable.
+                </p>
+                <p>
+                    Además de mis sets en vivo, me dedico a la producción de música original, buscando innovar y dejar mi propia huella en la escena electrónica. Te invito a explorar mi música y mi mundo.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Música (SoundCloud) -->
+    <section id="music" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-5xl font-bold mb-12 text-teal-400 animate-slide-in-left">Música: Sets y Producciones</h2>
+            <p class="text-lg text-gray-300 mb-12">
+                Explora mis últimos sets y mis canciones originales directamente desde SoundCloud.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Ejemplo de embed de SoundCloud para un SET -->
+                <div class="soundcloud-embed bg-gray-800 rounded-lg shadow-xl p-4 transform transition-transform duration-300 hover:scale-105 animate-fade-in-up">
+                    <h3 class="text-2xl font-semibold mb-4 text-teal-300">Mi Último Set: Verano 2024</h3>
+                    <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+                        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/[ID_DE_TU_SET_AQUI]&color=%2300bfff&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+                    </iframe>
+                    <div class="text-sm text-gray-400 mt-2">
+                        <!-- Reemplaza [ID_DE_TU_SET_AQUI] con el ID real de tu set de SoundCloud -->
+                        <!-- Para obtener el ID: En SoundCloud, ve a la canción/set, haz clic en "Share", luego "Embed", y copia el src del iframe. -->
+                    </div>
+                </div>
+
+                <!-- Ejemplo de embed de SoundCloud para una Canción Propia -->
+                <div class="soundcloud-embed bg-gray-800 rounded-lg shadow-xl p-4 transform transition-transform duration-300 hover:scale-105 animate-fade-in-up delay-100">
+                    <h3 class="text-2xl font-semibold mb-4 text-teal-300">Canción Propia: 'Ritmo Cósmico'</h3>
+                    <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+                        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/[ID_DE_TU_CANCION_AQUI]&color=%2300bfff&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+                    </iframe>
+                    <div class="text-sm text-gray-400 mt-2">
+                        <!-- Reemplaza [ID_DE_TU_CANCION_AQUI] con el ID real de tu canción de SoundCloud -->
+                    </div>
+                </div>
+
+                <!-- Puedes añadir más embeds de SoundCloud aquí -->
+                <div class="soundcloud-embed bg-gray-800 rounded-lg shadow-xl p-4 transform transition-transform duration-300 hover:scale-105 animate-fade-in-up delay-200">
+                    <h3 class="text-2xl font-semibold mb-4 text-teal-300">Remix: 'Aurora'</h3>
+                    <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+                        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/[ID_DE_OTRA_CANCION_AQUI]&color=%2300bfff&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Galería (Fotos y Videos) -->
+    <section id="gallery" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-5xl font-bold mb-12 text-teal-400 animate-slide-in-right">Galería de Momentos</h2>
+            <p class="text-lg text-gray-300 mb-12">
+                Una mirada a mis presentaciones, sesiones de estudio y momentos detrás de escena.
+            </p>
+            <div class="collage-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Fotos -->
+                <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up">
+                    <img src="https://placehold.co/400x300/2D3748/FFFFFF?text=Foto+1" alt="Descripción de la foto 1" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-white text-xl font-semibold">Ver Foto</span>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-100">
+                    <img src="https://placehold.co/300x400/2D3748/FFFFFF?text=Foto+2" alt="Descripción de la foto 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-white text-xl font-semibold">Ver Foto</span>
+                    </div>
+                </div>
+                <!-- Videos (asegúrate de que los archivos de video estén alojados en tu servidor o uses un servicio de hosting de video directo, no YouTube) -->
+                <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-200">
+                    <video controls class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                        <!-- Reemplaza 'video1.mp4' con la ruta a tu archivo de video -->
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        Tu navegador no soporta el tag de video.
+                    </video>
+                    <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-white text-xl font-semibold">Reproducir Video</span>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-300">
+                    <img src="https://placehold.co/400x300/2D3748/FFFFFF?text=Foto+3" alt="Descripción de la foto 3" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-white text-xl font-semibold">Ver Foto</span>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-400">
+                    <img src="https://placehold.co/300x400/2D3748/FFFFFF?text=Foto+4" alt="Descripción de la foto 4" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-white text-xl font-semibold">Ver Foto</span>
+                    </div>
+                </div>
+                <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-500">
+                    <video controls class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                        <!-- Reemplaza 'video2.mp4' con la ruta a tu archivo de video -->
+                        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+                        Tu navegador no soporta el tag de video.
+                    </video>
+                    <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-white text-xl font-semibold">Reproducir Video</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal para ver imágenes/videos en grande (implementado con JS) -->
+            <div id="gallery-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+                <div class="modal-content relative bg-gray-900 rounded-lg p-4 max-w-4xl max-h-screen overflow-auto">
+                    <button class="close-modal absolute top-4 right-4 text-white text-3xl font-bold hover:text-red-500">&times;</button>
+                    <img id="modal-image" src="" alt="Imagen grande" class="max-w-full max-h-[80vh] object-contain mx-auto hidden">
+                    <video id="modal-video" src="" controls class="max-w-full max-h-[80vh] object-contain mx-auto hidden"></video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section id="contact" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-5xl font-bold mb-12 text-teal-400 animate-slide-in-left">Contacto</h2>
+            <p class="text-lg text-gray-300 mb-8">
+                ¿Interesado en una colaboración, booking o simplemente saludar? ¡Envíame un mensaje!
+            </p>
+            <form class="max-w-xl mx-auto bg-gray-800 p-8 rounded-lg shadow-xl animate-fade-in-up delay-200">
+                <div class="mb-6 text-left">
+                    <label for="name" class="block text-gray-300 text-sm font-bold mb-2">Nombre:</label>
+                    <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 border-gray-600 text-white" placeholder="Tu Nombre" required>
+                </div>
+                <div class="mb-6 text-left">
+                    <label for="email" class="block text-gray-300 text-sm font-bold mb-2">Email:</label>
+                    <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 border-gray-600 text-white" placeholder="tu.email@ejemplo.com" required>
+                </div>
+                <div class="mb-6 text-left">
+                    <label for="message" class="block text-gray-300 text-sm font-bold mb-2">Mensaje:</label>
+                    <textarea id="message" name="message" rows="6" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 border-gray-600 text-white" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                </div>
+                <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+                    Enviar Mensaje
+                </button>
+            </form>
+            <div class="mt-12 text-center">
+                <p class="text-xl text-gray-300 mb-4">¡Sígueme en mis redes sociales!</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="https://www.instagram.com/tuid/" target="_blank" class="text-gray-400 hover:text-pink-500 transition-colors duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M7.7 2.05A1.75 1.75 0 006 3.8v16.4a1.75 1.75 0 002.05 1.7L18.2 13.7a1.75 1.75 0 000-3.4L7.7 2.05z"></path></svg>
+                    </a>
+                    <a href="https://soundcloud.com/tuid" target="_blank" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M18.8 11.2a6.82 6.82 0 01-2.9 5.5l-.2-.2a5.28 5.28 0 00-2.3 4.4 1.7 1.7 0 01-1.7 1.7h-3.4a1.7 1.7 0 01-1.7-1.7v-2.1a1.7 1.7 0 011.7-1.7h.6c.4-.6.8-1.2 1.3-1.8a5.2 5.2 0 00.3-6.2 5.23 5.23 0 00-4-2.8l-.1-.1a6.83 6.83 0 016.9-3.2 6.83 6.83 0 015.3 5.4zM4.1 8.5a1.7 1.7 0 01-1.7-1.7V4.7a1.7 1.7 0 011.7-1.7h2.4a1.7 1.7 0 011.7 1.7V6a1.7 1.7 0 01-1.7 1.7H5.4c-.6.8-1.2 1.6-1.3 2.5a5.1 5.1 0 00-.1 2.3 5.25 5.25 0 002.2 4.1l.2.2a6.83 6.83 0 01-1.8 1.4 6.82 6.82 0 01-3.6.4l-.1 0a1.75 1.75 0 01-1.7-1.7v-3.4a1.7 1.7 0 011.7-1.7h.6c-.6.4-1.2.8-1.8 1.3a5.2 5.2 0 00-6.2.3 5.2 5.2 0 00-2.8-4l-.1-.1a6.83 6.83 0 01-3.2 6.9 6.83 6.83 0 015.4 5.3z"></path></svg>
+                    </a>
+                    <!-- Añade más iconos de redes sociales si lo deseas -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de Página -->
+    <footer class="py-8 bg-gray-900 text-gray-400 text-center text-sm border-t border-gray-700">
+        <p>&copy; 2024 DJ [Tu Nombre]. Todos los derechos reservados.</p>
+        <p>Diseñado con pasión por la música.</p>
+    </footer>
+
+    <!-- Enlace a tu archivo JavaScript personalizado -->
+    <script src="script.js"></script>
+</body>
+</html>
