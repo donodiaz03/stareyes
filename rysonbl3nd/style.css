@@ -1,9 +1,9 @@
 /* Importa la fuente 'Inter' de Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
 
 /* Estilos Generales y Reset Básico */
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Anta', sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
