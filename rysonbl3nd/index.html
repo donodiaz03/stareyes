@@ -16,13 +16,32 @@
     <header class="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-90 z-50 shadow-lg">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="#hero" class="text-3xl font-bold text-teal-400 hover:text-teal-300 transition-colors duration-300">BIENVENIDOS</a>
-            <ul class="flex space-x-6">
+            
+            <!-- Menú para escritorio -->
+            <ul class="hidden md:flex space-x-6">
                 <li><a href="#about" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Sobre Mí</a></li>
                 <li><a href="#music" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Sets</a></li>
                 <li><a href="#gallery" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Galería</a></li>
                 <li><a href="#contact" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Contacto</a></li>
             </ul>
+
+            <!-- Botón de menú para móviles -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"></path></svg>
+                </button>
+            </div>
         </nav>
+
+        <!-- Menú desplegable para móviles -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <ul class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <li><a href="#about" class="block py-2 px-3 text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Sobre Mí</a></li>
+                <li><a href="#music" class="block py-2 px-3 text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Sets</a></li>
+                <li><a href="#gallery" class="block py-2 px-3 text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Galería</a></li>
+                <li><a href="#contact" class="block py-2 px-3 text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Contacto</a></li>
+            </ul>
+        </div>
     </header>
 
     <!-- Sección Principal (Hero) con la foto del DJ y el fondo animado -->
@@ -34,12 +53,12 @@
         <div class="relative z-10 flex flex-col items-center">
             <div class="profile-photo-container rounded-full overflow-hidden shadow-2xl border-4 border-teal-400 transform transition-transform duration-500 hover:scale-105">
                 <!-- Asegúrate de reemplazar 'dj-profile.jpg' con la ruta de tu foto de perfil -->
-                <img src="img/yo.jpg" alt="Foto de perfil del DJ" class="w-full h-full object-cover">
+                <img src="img/yo.png" alt="Foto de perfil del DJ" class="w-full h-full object-cover">
             </div>
             <img src="img/RysonBl3nd (sin fondo).png" alt="Logo de DJ [Tu Nombre]"
                  class="mt-8 mb-4 max-w-xs md:max-w-sm lg:max-w-md h-auto animate-fade-in-up drop-shadow-lg">
             <p class="mt-4 text-2xl font-light text-gray-300 animate-fade-in-up delay-100">
-                Llevando el ritmo de la música electrónica a tus oídos.
+                Desde Iztapalapa, para el mundo!
             </p>
             <div class="mt-10 space-x-6">
                 <a href="#music" class="inline-block bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
@@ -169,7 +188,7 @@
                         <!-- Reemplaza 'video1.mp4' con la ruta a tu archivo de video -->
                         <source src="videos/exordium.mp4" type="video/mp4">
                         Tu navegador no soporta el tag de video.
-                    </video>
+                    </oideo>
                     <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <span class="text-white text-xl font-semibold">Reproducir Video</span>
                     </div>
@@ -187,11 +206,6 @@
                 </div>
 
             </div>
-
-
-
-
-
 
             <!-- Modal para ver imágenes/videos en grande (implementado con JS) -->
             <div id="gallery-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
