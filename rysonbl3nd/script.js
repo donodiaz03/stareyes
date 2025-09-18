@@ -65,30 +65,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 3. Animación de los elementos al hacer scroll (observador de intersección)
-    // Esto hace que las animaciones de fade-in y slide-in se disparen cuando el elemento entra en la vista.
     const sections = document.querySelectorAll('section');
 
     const observerOptions = {
-        root: null, // El viewport es el root
+        root: null,
         rootMargin: '0px',
-        threshold: 0.1 // El elemento es visible en un 10%
+        threshold: 0.1
     };
 
     const sectionObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Cuando la sección entra en la vista, se añaden las clases de animación
                 entry.target.querySelectorAll('.animate-fade-in-up, .animate-slide-in-right, .animate-slide-in-left').forEach(el => {
-                    el.style.opacity = '1'; // Asegura que el elemento se muestre
-                    // Las animaciones ya están definidas en CSS, solo se activa el display.
+                    el.style.opacity = '1';
                 });
-                // Una vez animado, se puede dejar de observar si la animación no se repetirá
-                // observer.unobserve(entry.target);
-            } else {
-                // Opcional: Para resetear la animación si sale de vista
-                // entry.target.querySelectorAll('.animate-fade-in-up, .animate-slide-in-right, .animate-slide-in-left').forEach(el => {
-                //     el.style.opacity = '0';
-                // });
             }
         });
     }, observerOptions);
@@ -104,8 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible'); // Añade una clase para activar la animación
-                observer.unobserve(entry.target); // Deja de observar una vez visible
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1 });
@@ -116,5 +106,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     galleryCollageItems.forEach(item => {
         itemObserver.observe(item);
+    });
+    
+    // 5. Funcionalidad del Menú Móvil (Hamburguesa)
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuLinks = mobileMenu.querySelectorAll('a');
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Cierra el menú móvil cuando se hace clic en un enlace
+    menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            // Se asegura de que el menú se oculte antes de navegar
+            mobileMenu.classList.add('hidden');
+        });
     });
 });
