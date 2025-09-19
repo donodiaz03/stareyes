@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Zen+Dots&display=swap');
 /* Variables CSS para colores */
 :root {
@@ -126,28 +125,18 @@ body {
     align-items: center;
 }
 
-/* ESTILOS PARA LA IMAGEN DEL LOGO */
 .logo-link {
-    display: flex; /* Asegura que el enlace se comporte como un contenedor flexible */
-    align-items: center; /* Centra verticalmente la imagen dentro del enlace */
-    height: 40px; /* Ajusta la altura del contenedor del logo si es necesario */
+    display: flex;
+    align-items: center;
+    height: 40px;
+    z-index: 1100; /* Asegura que el logo esté visible */
 }
 
 .logo-img {
-    max-width: 270px; /* Ancho máximo de la imagen */
-    height: auto; /* Mantiene la proporción de la imagen */
-    display: block; /* Elimina espacio extra debajo de la imagen */
+    max-width: 270px;
+    height: auto;
+    display: block;
 }
-
-/* Puedes eliminar o comentar los estilos de .logo si ya no lo usas como texto */
-/*
-.logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    letter-spacing: 0.5px;
-}
-*/
 
 .nav ul {
     list-style: none;
@@ -187,11 +176,28 @@ body {
     width: 100%;
 }
 
+/* AÑADIDO: Estilos para el botón de menú hamburguesa */
+.menu-toggle {
+    display: none; /* Oculto por defecto en pantallas grandes */
+    background: none;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 8px;
+    z-index: 1100; /* Asegura que esté por encima de otros elementos */
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background-color: var(--primary-color);
+    color: var(--dark-bg);
+}
 
 
 /* Sección Hero */
 .hero {
-    /* Aquí es donde debes cambiar la URL de la imagen */
     background: url('img/banner.jpg') no-repeat center center/cover;
     height: 80vh;
     display: flex;
@@ -220,13 +226,10 @@ body {
     margin: 0 auto;
 }
 
-.hero-content h2 {
-    font-size: 4.5rem;
-    color: var(--primary-color);
+.hero-content .hero-logo-img {
+    max-width: 100%;
+    height: auto;
     margin-bottom: 20px;
-    font-weight: 800;
-    line-height: 1.1;
-    text-shadow: 0 0 20px rgba(0, 188, 212, 0.7);
 }
 
 .hero-content p {
@@ -402,7 +405,7 @@ body {
 }
 
 .gallery-content {
-    display: none; /* Oculto por defecto, JS lo mostrará */
+    display: none;
     animation: fadeIn 0.5s ease-out forwards;
 }
 
@@ -421,15 +424,15 @@ body {
     gap: 20px;
 }
 
-.photo-carousel-item { /* Nuevo contenedor para cada carrusel de imágenes */
+.photo-carousel-item {
     width: 100%;
-    height: 270px; /* Altura fija para el carrusel, como las imágenes anteriores */
-    overflow: hidden; /* Oculta las imágenes que están fuera de la vista */
+    height: 270px;
+    overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid var(--border-color);
-    position: relative; /* Necesario para el posicionamiento del wrapper de imágenes */
+    position: relative;
 }
 
 .photo-carousel-item:hover {
@@ -438,18 +441,18 @@ body {
     border-color: var(--secondary-color);
 }
 
-.carousel-images-wrapper { /* Contenedor interno que contendrá las imágenes y se desplazará */
+.carousel-images-wrapper {
     display: flex;
-    width: 100%; /* El ancho inicial es 100%, se ajustará por JS */
+    width: 100%;
     height: 100%;
-    transition: transform 1s ease-in-out; /* Transición suave para el desplazamiento */
+    transition: transform 1s ease-in-out;
 }
 
-.carousel-images-wrapper img { /* Cada imagen dentro del carrusel */
-    width: 100%; /* Cada imagen toma el 100% del ancho del contenedor visible */
+.carousel-images-wrapper img {
+    width: 100%;
     height: 100%;
-    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsión */
-    flex-shrink: 0; /* Evita que las imágenes se encojan y mantiene su tamaño */
+    object-fit: cover;
+    flex-shrink: 0;
 }
 
 .video-grid {
@@ -459,11 +462,11 @@ body {
 }
 
 .video-item {
-    background-color: var(--dark-bg); /* Mantiene el color de fondo si la imagen no carga */
-    background-image: url('img/banner.jpg'); /* ¡Aquí pones la ruta de tu imagen! */
-    background-size: cover; /* Cubre todo el espacio del contenedor */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-color: var(--dark-bg);
+    background-image: url('img/banner.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
@@ -479,9 +482,9 @@ body {
 
 .video-item video {
     width: 100%;
-    height: auto; /* Permite que la altura se ajuste automáticamente según la proporción */
-    aspect-ratio: 10 / 10; /* Establece una proporción de aspecto común (ancho/alto) para que no se corte */
-    object-fit: contain; /* Asegura que el video completo sea visible, sin cortarse, añadiendo barras si es necesario */
+    height: auto;
+    aspect-ratio: 10 / 10;
+    object-fit: contain;
     display: block;
 }
 
@@ -498,7 +501,6 @@ body {
     background-color: var(--dark-bg);
 }
 
-/* MODIFICADO: Estilos para la nueva disposición de contacto */
 .contact-intro-text {
     font-size: 1.3rem;
     color: var(--light-text-color);
@@ -510,7 +512,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 40px;
-    max-width: 900px; /* Limita el ancho del contenedor general de opciones */
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -521,10 +523,10 @@ body {
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     border: 1px solid var(--border-color);
-    display: flex; /* Para flex-direction column */
+    display: flex;
     flex-direction: column;
-    align-items: center; /* Centra el contenido horizontalmente */
-    text-align: center; /* Alinea el texto dentro de los contenedores */
+    align-items: center;
+    text-align: center;
 }
 
 .contact-form-container h3,
@@ -536,33 +538,22 @@ body {
 }
 
 .contact-form {
-    width: 100%; /* El formulario ocupa todo el ancho de su contenedor */
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Espacio entre los elementos del formulario */
-    max-width: 400px; /* Limita el ancho del formulario en sí */
+    gap: 15px;
+    max-width: 400px;
 }
-
-.contact-form .form-group {
-    display: flex;
-    gap: 10px; /* Espacio entre los campos de nombre y correo */
-    width: 100%;
-}
-
-.contact-form .form-group input {
-    flex: 1; /* Hace que los inputs ocupen el espacio disponible */
-}
-
 
 .contact-form input[type="text"],
 .contact-form input[type="email"],
 .contact-form textarea {
-    padding: 10px; /* Reducido el padding para hacerlo más compacto */
+    padding: 10px;
     border: 1px solid var(--border-color);
-    background-color: var(--dark-bg); /* Fondo más oscuro para inputs */
+    background-color: var(--dark-bg);
     color: var(--text-color);
     border-radius: 8px;
-    font-size: 1rem; /* Tamaño de fuente ligeramente más pequeño */
+    font-size: 1rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -576,22 +567,22 @@ body {
 
 .contact-form textarea {
     resize: vertical;
-    min-height: 90px; /* Altura mínima más pequeña */
+    min-height: 90px;
 }
 
 .contact-form .primary-btn {
-    align-self: center; /* Centra el botón de enviar */
-    margin-top: 10px; /* Reduce el margen superior */
+    align-self: center;
+    margin-top: 10px;
 }
 
 .direct-contact-info p {
     font-size: 1.1rem;
     color: var(--light-text-color);
-    margin-bottom: 15px; /* Espacio entre cada línea de contacto */
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 10px; /* Espacio entre el icono y el texto */
-    justify-content: center; /* Centra los elementos */
+    gap: 10px;
+    justify-content: center;
 }
 
 .direct-contact-info p i {
@@ -609,12 +600,6 @@ body {
     color: var(--hover-color);
     text-decoration: underline;
 }
-
-.contact-link-button {
-    margin-top: 20px;
-    /* Usa estilos existentes de secondary-btn */
-}
-
 
 /* Pie de página */
 .footer {
@@ -730,18 +715,8 @@ body {
     transform: rotate(90deg);
 }
 
-.popup-small-text {
-    font-size: 0.9rem;
-    color: var(--light-text-color);
-    margin-top: 20px;
-}
-
 /* Responsividad */
 @media (max-width: 992px) {
-    .hero-content h2 {
-        font-size: 3.5rem;
-    }
-
     .hero-content p {
         font-size: 1.2rem;
     }
@@ -754,11 +729,7 @@ body {
         font-size: 2.2rem;
     }
 
-    .dj-card h3 {
-        font-size: 1.8rem;
-    }
-
-    .event-details h3 {
+    .dj-card h3, .event-details h3 {
         font-size: 1.8rem;
     }
 
@@ -768,30 +739,45 @@ body {
 }
 
 @media (max-width: 768px) {
+    /* MODIFICADO: Ajustes para el menú móvil */
     .header .container {
-        flex-direction: column;
-        text-align: center;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .menu-toggle {
+        display: block; /* Muestra el botón de hamburguesa */
     }
 
     .nav {
+        display: none; /* Oculta el menú por defecto */
+        width: 100%;
+        order: 3; /* Asegura que el menú aparezca debajo del logo y botón */
+    }
+
+    /* Clase que se añade con JS para mostrar el menú */
+    .nav.nav--visible {
+        display: block;
         margin-top: 20px;
     }
 
     .nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(4, 18, 43, 0.95);
+        padding: 20px 0;
+        border-radius: 10px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
     }
 
     .nav ul li {
-        margin: 0 10px 10px;
+        margin: 10px 0;
+        margin-left: 0;
     }
-
+    
     .hero {
         height: 70vh;
-    }
-
-    .hero-content h2 {
-        font-size: 2.8rem;
     }
 
     .hero-content p {
@@ -845,19 +831,12 @@ body {
         font-size: 1rem;
     }
 
-    /* Ajuste para el logo en pantallas pequeñas */
     .logo-img {
-        max-width: 250px; /* Un poco más pequeño en móviles */
+        max-width: 200px;
     }
 }
 
 @media (max-width: 480px) {
-    /* .logo { ... } Ya no es necesario si usas imagen */
-
-    .hero-content h2 {
-        font-size: 2.2rem;
-    }
-
     .hero-content p {
         font-size: 0.9rem;
     }
@@ -871,11 +850,7 @@ body {
         font-size: 1.8rem;
     }
 
-    .dj-card h3 {
-        font-size: 1.6rem;
-    }
-
-    .event-details h3 {
+    .dj-card h3, .event-details h3 {
         font-size: 1.6rem;
     }
 
