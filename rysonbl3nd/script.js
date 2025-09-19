@@ -2,15 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Desplazamiento suave para los enlaces de navegación
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault(); // Previene el comportamiento predeterminado del enlace
-
-            const targetId = this.getAttribute('href'); // Obtiene el ID del destino
-            const targetElement = document.querySelector(targetId); // Encuentra el elemento destino
-
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                // Desplaza la vista al elemento de forma suave
+                // For the logo link, we might not need to offset by header height if it's already visible
+                const offset = targetId === '#hero' ? 0 : document.querySelector('header').offsetHeight;
                 window.scrollTo({
-                    top: targetElement.offsetTop - (document.querySelector('header').offsetHeight || 0), // Ajusta por la altura del header fijo
+                    top: targetElement.offsetTop - offset,
                     behavior: 'smooth'
                 });
             }
@@ -29,86 +28,56 @@ document.addEventListener('DOMContentLoaded', () => {
             const img = item.querySelector('img');
             const video = item.querySelector('video');
 
-            // Reinicia la visibilidad de los elementos del modal
             modalImage.classList.add('hidden');
             modalVideo.classList.add('hidden');
-            modalVideo.pause(); // Pausa el video si estaba reproduciéndose
+            modalVideo.pause();
 
             if (img) {
-                // Si es una imagen, muestra la imagen en el modal
                 modalImage.src = img.src;
                 modalImage.classList.remove('hidden');
             } else if (video) {
-                // Si es un video, muestra el video en el modal
                 modalVideo.src = video.querySelector('source').src;
                 modalVideo.classList.remove('hidden');
-                modalVideo.play(); // Reproduce el video automáticamente
+                modalVideo.play();
             }
-            galleryModal.classList.remove('hidden'); // Muestra el modal
+            galleryModal.classList.remove('hidden');
         });
     });
 
-    // Cerrar el modal al hacer clic en el botón de cerrar
-    closeModalButton.addEventListener('click', () => {
-        galleryModal.classList.add('hidden'); // Oculta el modal
-        modalVideo.pause(); // Asegura que el video se detenga al cerrar
-        modalVideo.currentTime = 0; // Reinicia el video
-    });
+    const closeModal = () => {
+        galleryModal.classList.add('hidden');
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+    };
 
-    // Cerrar el modal al hacer clic fuera del contenido del modal
+    closeModalButton.addEventListener('click', closeModal);
     galleryModal.addEventListener('click', (e) => {
-        if (e.target === galleryModal) { // Solo si el clic es directamente en el fondo del modal
-            galleryModal.classList.add('hidden');
-            modalVideo.pause();
-            modalVideo.currentTime = 0;
+        if (e.target === galleryModal) {
+            closeModal();
         }
     });
 
-    // 3. Animación de los elementos al hacer scroll (observador de intersección)
-    const sections = document.querySelectorAll('section');
+    // 3. Pestañas de la Galería (Fotos y Videos)
+    const showPhotosBtn = document.getElementById('show-photos-btn');
+    const showVideosBtn = document.getElementById('show-videos-btn');
+    const photoGallery = document.getElementById('photo-gallery');
+    const videoGallery = document.getElementById('video-gallery');
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.querySelectorAll('.animate-fade-in-up, .animate-slide-in-right, .animate-slide-in-left').forEach(el => {
-                    el.style.opacity = '1';
-                });
-            }
-        });
-    }, observerOptions);
-
-    sections.forEach(section => {
-        sectionObserver.observe(section);
+    showPhotosBtn.addEventListener('click', () => {
+        photoGallery.classList.remove('hidden');
+        videoGallery.classList.add('hidden');
+        showPhotosBtn.classList.add('active-tab');
+        showVideosBtn.classList.remove('active-tab');
     });
 
-    // 4. Animación adicional para los elementos de música y galería
-    const musicItems = document.querySelectorAll('.soundcloud-embed');
-    const galleryCollageItems = document.querySelectorAll('.collage-grid .gallery-item');
-
-    const itemObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    musicItems.forEach(item => {
-        itemObserver.observe(item);
+    showVideosBtn.addEventListener('click', () => {
+        videoGallery.classList.remove('hidden');
+        photoGallery.classList.add('hidden');
+        showVideosBtn.classList.add('active-tab');
+        showPhotosBtn.classList.remove('active-tab');
     });
 
-    galleryCollageItems.forEach(item => {
-        itemObserver.observe(item);
-    });
-    
-    // 5. Funcionalidad del Menú Móvil (Hamburguesa)
+    // 4. Funcionalidad del Menú Móvil (Hamburguesa)
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuLinks = mobileMenu.querySelectorAll('a');
@@ -117,11 +86,31 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileMenu.classList.toggle('hidden');
     });
 
-    // Cierra el menú móvil cuando se hace clic en un enlace
     menuLinks.forEach(link => {
         link.addEventListener('click', () => {
-            // Se asegura de que el menú se oculte antes de navegar
             mobileMenu.classList.add('hidden');
         });
     });
+
+    // 5. Lógica para cambiar el logo en el header al hacer scroll
+    const header = document.querySelector('header');
+    const heroSection = document.getElementById('hero');
+    const logoText = document.getElementById('logo-text');
+    const logoImage = document.getElementById('logo-image');
+    const scrollTriggerHeight = heroSection.offsetHeight / 2; // El cambio ocurrirá a la mitad de la sección 'hero'
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > scrollTriggerHeight) {
+            // El usuario ha bajado lo suficiente
+            header.classList.add('scrolled');
+            logoText.classList.add('hidden');
+            logoImage.classList.remove('hidden');
+        } else {
+            // El usuario está en la parte superior de la página
+            header.classList.remove('scrolled');
+            logoText.classList.remove('hidden');
+            logoImage.classList.add('hidden');
+        }
+    }, { passive: true }); // Mejora el rendimiento del scroll
 });
+

@@ -1,4 +1,4 @@
-/* Importa la fuente 'Inter' de Google Fonts */
+/* Importa la fuente 'Anta' de Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
 
 /* Estilos Generales y Reset Básico */
@@ -9,17 +9,48 @@ body {
     padding: 0;
     scroll-behavior: smooth; /* Desplazamiento suave para los enlaces */
 }
-/* Estilos de la barra de navegación */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #001728; /* Sincronizado con el color de fondo principal */
-    background-attachment: 0.95;
-    z-index: 50;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: background-color 0.3s ease-in-out;
+
+/* --- ESTILOS DEL HEADER --- */
+header.scrolled {
+    background-color: #001728; /* Se vuelve opaco al hacer scroll */
+}
+
+/* --- ESTILOS DE LA GALERÍA --- */
+.gallery-tab-btn {
+    padding: 0.75rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid #0891b2; /* cian-600 */
+    color: #0891b2;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    border-radius: 9999px; /* rounded-full */
+    margin: 0 0.5rem;
+}
+
+.gallery-tab-btn:hover {
+    background-color: rgba(8, 145, 178, 0.2); /* cian-600 con opacidad */
+}
+
+.gallery-tab-btn.active-tab {
+    background-color: #0891b2; /* cian-600 */
+    color: white;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.group:hover .overlay {
+    opacity: 1;
 }
 
 /* Contenedor del fondo animado en la sección hero */
@@ -29,264 +60,55 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Múltiples degradados con los nuevos colores para un efecto de color complejo */
     background: linear-gradient(45deg, #001728, #00253a, #00384f, #001728),
                 linear-gradient(-45deg, #005064, #006d77, #005064, #006d77);
-    background-size: 400% 400%; /* Tamaño más grande para permitir el movimiento */
-    animation: gradientShift 15s ease infinite alternate; /* Animación de movimiento */
-    z-index: 0; /* Asegura que esté detrás del contenido */
-    opacity: 0.8; /* Ligeramente transparente para no distraer */
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite alternate;
+    z-index: -1; /* Lo ponemos detrás para que no interfiera con el contenido del hero */
 }
 
-/* Animación de los degradados de fondo */
 @keyframes gradientShift {
-    0% {
-        background-position: 0% 50%, 100% 50%;
-    }
-    50% {
-        background-position: 100% 50%, 0% 50%;
-    }
-    100% {
-        background-position: 0% 50%, 100% 50%;
-    }
+    0% { background-position: 0% 50%, 100% 50%; }
+    50% { background-position: 100% 50%, 0% 50%; }
+    100% { background-position: 0% 50%, 100% 50%; }
 }
 
-/* Contenedor de la foto de perfil del DJ */
+/* Estilos de la foto de perfil */
 .profile-photo-container {
     width: 300px;
     height: 300px;
-    border-radius: 50%; /* Circular */
-    overflow: hidden;
-    position: relative;
-    z-index: 1; /* Asegura que esté por encima del fondo animado */
-    border: 4px solid #006d77; /* Borde con color de acento */
-    box-shadow: 0 0 40px rgba(0, 109, 119, 0.7); /* Sombra para resaltar con el nuevo color */
 }
 
-.profile-photo-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Animaciones de entrada (fade-in-up) */
+/* Animaciones */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-
 .animate-fade-in-up {
     animation: fadeInUp 0.8s ease-out forwards;
-    opacity: 0; /* Oculto inicialmente */
+    opacity: 0;
 }
-
-/* Retrasos para las animaciones */
 .delay-100 { animation-delay: 0.1s; }
 .delay-200 { animation-delay: 0.2s; }
 .delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
 .delay-500 { animation-delay: 0.5s; }
 
-/* Animaciones de entrada (slide-in-right) */
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.animate-slide-in-right {
-    animation: slideInRight 0.8s ease-out forwards;
-    opacity: 0;
-}
-
-/* Animaciones de entrada (slide-in-left) */
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.animate-slide-in-left {
-    animation: slideInLeft 0.8s ease-out forwards;
-    opacity: 0;
-}
-
-/* Estilos de la galería - Collage Grid */
-.collage-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adaptable automáticamente */
-    gap: 1rem; /* Espacio entre los elementos */
-}
-
-.gallery-item {
-    position: relative;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease-in-out;
-}
-
-.gallery-item img,
-.gallery-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s ease-in-out;
-}
-
-.gallery-item:hover img,
-.gallery-item:hover video {
-    transform: scale(1.05); /* Zoom ligero al pasar el ratón */
-}
-
-.gallery-item .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Oscuro con transparencia */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.gallery-item:hover .overlay {
-    opacity: 1;
-}
-
-.overlay span {
-    color: white;
-    font-size: 1.25rem;
-    font-weight: bold;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* Estilos del Modal de Galería */
-#gallery-modal {
-    background-color: rgba(0, 23, 40, 0.9); /* Un oscuro con transparencia para el overlay */
-}
-
+/* Modal de la galería */
 .modal-content {
-    background-color: #001728; /* Fondo oscuro similar al body */
-    border-radius: 0.75rem;
-    padding: 1rem;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background-color: #001728;
     max-width: 90%;
-    max-height: 90vh; /* Para que no ocupe toda la altura en pantallas pequeñas */
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content img,
-.modal-content video {
-    max-width: 100%;
-    max-height: calc(90vh - 2rem); /* Ajusta para el padding del modal */
-    object-fit: contain;
-}
-
-.close-modal {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 2.5rem;
-    color: white;
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    transition: color 0.3s ease-in-out;
+    max-height: 90vh;
 }
 
 .close-modal:hover {
-    color: #ef4444; /* Rojo para un contraste fuerte en el hover */
+    color: #ef4444; /* red-500 */
 }
 
 /* --- Responsive Design --- */
-
-/* Teléfonos (hasta 767px) */
 @media (max-width: 767px) {
-    /* Aquí se necesitaría JavaScript para un botón de hamburguesa */
-    header nav ul {
-        flex-direction: column;
-        display: none;
-        width: 100%;
-        background-color: rgba(0, 23, 40, 0.95); /* Color de fondo con transparencia */
-        position: absolute;
-        top: 100%;
-        left: 0;
-        padding: 1rem 0;
-        text-align: center;
-        border-top: 1px solid rgba(0, 78, 91, 0.5); /* Borde con nuevo color de acento */
-    }
-
-    header nav ul.open {
-        display: flex;
-    }
-
-    header nav ul li {
-        margin: 0.5rem 0;
-    }
-
-    #hero h1 {
-        font-size: 3rem;
-    }
-
-    #hero p {
-        font-size: 1.25rem;
-    }
-
-    #hero .space-x-6 {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
     .profile-photo-container {
         width: 200px;
         height: 200px;
     }
-
-    h2 {
-        font-size: 2.5rem !important;
-    }
-
-    .collage-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
 }
 
-/* Tablets (768px a 1023px) */
-@media (min-width: 768px) and (max-width: 1023px) {
-    #hero h1 {
-        font-size: 4.5rem;
-    }
-
-    .collage-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-}
-
-/* Escritorio (1024px en adelante) */
-@media (min-width: 1024px) {
-    /* Los estilos por defecto ya están optimizados para escritorio */
-}
