@@ -1,24 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Funcionalidad de la Ventana Emergente (Pop-up) ---
-    const socialPopup = document.getElementById('social-popup');
-    const closePopupBtn = document.querySelector('.close-popup-btn');
-
-    if (socialPopup && closePopupBtn) {
-        setTimeout(() => {
-            socialPopup.classList.add('active');
-        }, 1000);
-
-        closePopupBtn.addEventListener('click', () => {
-            socialPopup.classList.remove('active');
-        });
-
-        socialPopup.addEventListener('click', (event) => {
-            if (event.target === socialPopup) {
-                socialPopup.classList.remove('active');
-            }
-        });
-    }
-
     // --- Funcionalidad de las Pestañas de la Galería ---
     const tabButtons = document.querySelectorAll('.tab-btn');
     const galleryContents = document.querySelectorAll('.gallery-content');
