@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Eyes Festival</title>
+    <title>Star Eyes Festival - Fusión</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +24,11 @@
             --color-text-secondary: #a0a0a0;
             --color-accent-primary: #00ffff; /* Cyan */
             --color-accent-secondary: #ff00ff; /* Magenta */
+            --color-purple: #8A2BE2; /* Azul violeta */
+            /* Nuevos colores para Linktree */
+            --color-linktree-start: #32CD32; /* Lime Green */
+            --color-linktree-end: #FFD700;   /* Gold / Yellow */
+
             --color-border: #333333;
             --font-primary: 'Inter', sans-serif;
             --font-title: 'Inter', sans-serif;
@@ -92,27 +97,38 @@
             display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 2rem;
         }
         .banner-nav-btn { /* Style similar to tertiary but slightly different */
-            background-color: rgba(255, 255, 255, 0.1); color: var(--color-text-primary); border: 1px solid var(--color-border);
+             /* Apply gradient background */
+            background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary));
+            color: var(--color-black); /* Text color black for contrast */
+            border: none; /* Remove border */
             padding: 0.7rem 1.5rem; font-size: 0.85rem; margin-top: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         .banner-nav-btn i { margin-right: 0.3rem; font-size: 0.8em; } /* Icon spacing */
-        .banner-nav-btn:hover { background-color: rgba(255, 255, 255, 0.2); border-color: var(--color-white); color: var(--color-white); }
+        .banner-nav-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+             box-shadow: 0 6px 15px rgba(0, 255, 255, 0.3), 0 6px 15px rgba(255, 0, 255, 0.3);
+        }
+
         .primary-btn { background-color: var(--color-white); color: var(--color-black); border-color: var(--color-white); }
         .primary-btn:hover { background-color: var(--color-dark-bg); color: var(--color-white); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); }
         .secondary-btn { background-color: var(--color-accent-primary); color: var(--color-black); border-color: var(--color-accent-primary); }
         .secondary-btn:hover { background-color: var(--color-dark-bg); color: var(--color-accent-primary); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3); }
         .tertiary-btn { background-color: transparent; color: var(--color-white); border-color: var(--color-border); }
         .tertiary-btn:hover { background-color: var(--color-card-bg); border-color: var(--color-white); color: var(--color-white); transform: translateY(-2px); }
-        /* Linktree button in banner */
+
+        /* Linktree button in banner - New Gradient */
         .linktree-btn-banner {
-            background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary));
-            color: var(--color-black); border: none; padding: 0.7rem 1.5rem; font-size: 0.85rem; margin-top: 0.5rem;
-            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2), 0 4px 15px rgba(255, 0, 255, 0.2);
+            background: linear-gradient(90deg, var(--color-linktree-start), var(--color-linktree-end));
+            color: var(--color-black); /* Ensure text is black */
+            border: none; padding: 0.7rem 1.5rem; font-size: 0.85rem; margin-top: 0.5rem;
+            box-shadow: 0 4px 15px rgba(50, 205, 50, 0.3), 0 4px 15px rgba(255, 215, 0, 0.3);
             animation: pulse 2s infinite;
         }
          .linktree-btn-banner:hover {
             opacity: 0.9; transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4), 0 6px 20px rgba(255, 0, 255, 0.4);
+            box-shadow: 0 6px 20px rgba(50, 205, 50, 0.5), 0 6px 20px rgba(255, 215, 0, 0.5);
             animation-play-state: paused; /* Pause animation on hover */
         }
         @keyframes pulse {
@@ -227,15 +243,34 @@
 
         /* --- Hero Section --- */
         .hero {
-            background: url('img/banner.jpg') no-repeat center center/cover;
-            min-height: 90vh; display: flex; align-items: center; justify-content: center; /* Use min-height */
-            text-align: center; position: relative; overflow: hidden; padding: 4rem 0; /* Add padding for content */
+            /* Remove background image */
+            /* background: url('img/banner.jpg') no-repeat center center/cover; */
+            min-height: 90vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; position: relative; overflow: hidden;
+            padding: 4rem 0; background-color: var(--color-dark-bg); /* Fallback bg color */
         }
-        .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 10, 10, 0.5) 0%, rgba(10, 10, 10, 0.9) 100%); z-index: 1; }
-        .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; padding: 0 1rem; animation: hero-fade-in 1s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        #hero-video-bg {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 100%; height: 100%;
+            object-fit: cover; /* Cover the area */
+            transform: translate(-50%, -50%);
+            z-index: 1; /* Behind overlay and content */
+            pointer-events: none; /* Make sure it's not clickable */
+        }
+        .hero::before { /* Gradient Overlay */
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.4) 0%, rgba(10, 10, 10, 0.8) 100%); /* Adjusted opacity */
+            z-index: 2; /* Above video, below content */
+        }
+        .hero-content {
+            position: relative; z-index: 3; /* Above overlay */
+            max-width: 800px; margin: 0 auto; padding: 0 1rem;
+            animation: hero-fade-in 1s ease-out forwards; opacity: 0; transform: translateY(20px);
+        }
         @keyframes hero-fade-in { to { opacity: 1; transform: translateY(0); } }
         .hero-content .hero-logo-img { max-width: 70%; height: auto; margin-bottom: 1.5rem; }
-        .hero-content p { font-size: clamp(1rem, 3vw, 1.2rem); color: var(--color-text-primary); margin-bottom: 2rem; max-width: 600px; margin: 0 auto 2rem; }
+        .hero-content p { font-size: clamp(1rem, 3vw, 1.2rem); color: var(--color-text-primary); margin-bottom: 2rem; max-width: 600px; margin: 0 auto 2rem; text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* Add shadow for readability */ }
 
 
         /* --- Section Styles --- */
@@ -294,14 +329,20 @@
         .carousel-images-wrapper { display: flex; height: 100%; transition: transform 1s ease-in-out; }
         .carousel-images-wrapper img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; display: block; }
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-        .video-item { background-color: var(--color-card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); transition: transform var(--transition-medium), box-shadow var(--transition-medium), border-color var(--transition-medium); border: 1px solid var(--color-border); display: flex; flex-direction: column; position: relative; }
+        .video-item { background-color: var(--color-card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); transition: transform var(--transition-medium), box-shadow var(--transition-medium), border-color var(--transition-medium); border: 1px solid var(--color-border); display: flex; flex-direction: column; }
         .video-item:hover { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); border-color: var(--color-accent-primary); }
-        .video-cover { width: 100%; aspect-ratio: 16 / 9; position: relative; cursor: pointer; overflow: hidden; }
-        .video-cover img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-        .video-item:hover .video-cover img { transform: scale(1.05); }
-        .video-play-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: rgba(255, 255, 255, 0.8); background-color: rgba(0, 0, 0, 0.4); width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; pointer-events: none; transition: background-color 0.3s ease, color 0.3s ease; }
-        .video-item:hover .video-play-button { background-color: rgba(0, 0, 0, 0.6); color: var(--color-white); }
-        .video-item p { padding: 1rem; font-size: 1rem; color: var(--color-text-secondary); text-align: center; font-family: var(--font-title); font-weight: 600; background-color: var(--color-card-bg); border-top: 1px solid var(--color-border); margin-bottom: 0; flex-grow: 1; }
+        /* Style for HTML5 video element */
+        .video-item video {
+            display: block; width: 100%; aspect-ratio: 16 / 9; /* Maintain aspect ratio */
+            background-color: var(--color-black); /* Fallback bg */
+            border-radius: 12px 12px 0 0; /* Match card radius top */
+        }
+        .video-item p {
+            padding: 1rem; font-size: 1rem; color: var(--color-text-secondary); text-align: center;
+            font-family: var(--font-title); font-weight: 600; background-color: var(--color-card-bg);
+            border-top: 1px solid var(--color-border); margin-bottom: 0; flex-grow: 1;
+            border-radius: 0 0 12px 12px; /* Match card radius bottom */
+        }
         .gallery-view-more { text-align: center; margin-top: 3rem; }
 
         /* --- Full Gallery View --- */
@@ -316,7 +357,8 @@
 
         .full-photo-grid, .full-video-grid { display: grid; gap: 1.5rem; }
         .full-photo-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-        .gallery-item { display: block; transition: opacity 0.3s ease, transform 0.3s ease; cursor: pointer; } /* Added cursor */
+        .gallery-item { display: block; transition: opacity 0.3s ease, transform 0.3s ease; }
+        .gallery-item.photo-item { cursor: pointer; } /* Add cursor only to photos for lightbox */
         .gallery-item.hidden-filter { opacity: 0; transform: scale(0.95); pointer-events: none; height: 0; margin: 0; padding: 0; border: none; overflow: hidden; display: none; }
 
         .full-photo-grid .gallery-item img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px; border: 1px solid var(--color-border); transition: transform var(--transition-fast), border-color var(--transition-fast); }
@@ -361,21 +403,13 @@
         }
         .lightbox-overlay.active { opacity: 1; visibility: visible; }
         .lightbox-content {
-            position: relative;
-            /* Remove fixed max-width/height, let image dictate */
-            cursor: default;
+            position: relative; cursor: default;
             transform: scale(0.9); transition: transform var(--transition-medium);
         }
         .lightbox-overlay.active .lightbox-content { transform: scale(1); }
         #lightbox-image {
-            display: block;
-            /* Constrain image size based on viewport, maintaining aspect ratio */
-            max-width: 85vw;  /* Max width relative to viewport width */
-            max-height: 85vh; /* Max height relative to viewport height */
-            width: auto;      /* Let width adjust based on height constraint */
-            height: auto;     /* Let height adjust based on width constraint */
-            object-fit: contain; /* Ensure entire image fits */
-            border-radius: 8px;
+            display: block; max-width: 85vw; max-height: 85vh; width: auto; height: auto;
+            object-fit: contain; border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         .lightbox-close {
@@ -392,7 +426,7 @@
             #full-gallery-view { padding: 3rem 0 5rem; }
             .banner-nav-btn { padding: 0.6rem 1.2rem; font-size: 0.8rem; }
             #inicio-page .hero { min-height: calc(100vh - 67px); }
-             #lightbox-image { max-width: 90vw; max-height: 90vh; } /* Allow slightly larger on medium screens */
+             #lightbox-image { max-width: 90vw; max-height: 90vh; }
         }
         @media (max-width: 768px) {
             html { font-size: 14px; } .container { padding: 0 1rem; } section.page-section { padding: 4rem 0; }
@@ -412,7 +446,7 @@
             .filter-btn { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
             .lightbox-overlay { padding: 1rem; }
              .lightbox-close { top: 0.5rem; right: 0.5rem; font-size: 2rem; }
-             #lightbox-image { max-width: 95vw; max-height: 90vh; } /* Further adjust for mobile */
+             #lightbox-image { max-width: 95vw; max-height: 90vh; }
         }
         @media (max-width: 480px) {
             html { font-size: 13px; } .section-title { margin-bottom: 3rem; }
@@ -471,19 +505,28 @@
             <!-- Hero Section (Acts as the initial page) -->
             <section id="inicio-page" class="page-section active">
                 <div class="hero">
+                     <!-- Background Video -->
+                     <video autoplay loop muted playsinline id="hero-video-bg">
+                         <!-- ### CAMBIA ESTA RUTA por la ruta a tu video ### -->
+                         <source src="img/banner.mp4" type="video/mp4">
+                         <!-- Fallback -->
+                         Tu navegador no soporta videos HTML5. Considera usar la imagen de fondo estática.
+                     </video>
+                     <!-- End Background Video -->
+
                     <div class="hero-content">
                         <img src="img/LOGOSE.png" alt="Logo Principal Star Eyes" class="hero-logo-img">
                         <p>Un colectivo de DJs fusionando energía y sonido. Listos para electrizar tu evento con beats inolvidables.</p>
                         <!-- Banner Navigation Buttons -->
                         <div class="banner-nav-buttons">
                             <button class="btn banner-nav-btn" data-page="djs-page"><i class="fas fa-users"></i> DJs</button>
-                            <button class="btn banner-nav-btn" data-page="musica-page"><i class="fas fa-music"></i> Música</button>
+                            <button class="btn banner-nav-btn" data-page="musica-page"><i class="fas fa-music"></i> MÚSICA & DJ SETS</button>
                             <button class="btn banner-nav-btn" data-page="eventos-page"><i class="fas fa-calendar-alt"></i> Eventos</button>
                             <button class="btn banner-nav-btn" data-page="galeria-page"><i class="fas fa-images"></i> Galería</button>
                             <button class="btn banner-nav-btn" data-page="contacto-page"><i class="fas fa-envelope"></i> Contacto</button>
                              <!-- Added Second Linktree Button -->
                              <a href="https://linktr.ee/stareyesfestival" target="_blank" rel="noopener noreferrer" class="btn linktree-btn-banner">
-                                <i class="fas fa-share-alt" aria-hidden="true"></i> Linktree
+                                <i class="fas fa-share-alt" aria-hidden="true"></i> Siguenos!
                             </a>
                         </div>
                     </div>
@@ -520,13 +563,13 @@
                         <div class="music-card reveal-on-scroll">
                             <h3>RysonBl3nd</h3> <p>Big Room/Techno & Hardstyle</p>
                             <div class="soundcloud-embed">
-                                <iframe title="SoundCloud Player for RysonBl3nd Set 1" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1848242487&color=%2300ffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+                                <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2186575318&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/djrysonbl3nd" title="RysonBl3nd" target="_blank" style="color: #cccccc; text-decoration: none;">RysonBl3nd</a> · <a href="https://soundcloud.com/djrysonbl3nd/dj-set-techno-hardstyle" title="DJ SET Big Room/Techno Hardstyle" target="_blank" style="color: #cccccc; text-decoration: none;">DJ SET Big Room/Techno Hardstyle</a></div>
                             </div>
                         </div>
                         <div class="music-card reveal-on-scroll">
                              <h3>RysonBl3nd</h3> <p>Progressive House, Big Room/Techno & Hardstyle</p>
                              <div class="soundcloud-embed">
-                                <iframe title="SoundCloud Player for RysonBl3nd Set 2" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1831761891&color=%2300ffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+                                <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2045030729&color=%23491e96&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/djrysonbl3nd" title="RysonBl3nd" target="_blank" style="color: #cccccc; text-decoration: none;">RysonBl3nd</a> · <a href="https://soundcloud.com/djrysonbl3nd/rysonbl3nd-mix-progressive-house-big-roomtechno-hardstyle" title="DJ SET Progressive House, Big Room/Techno &amp; Hardstyle" target="_blank" style="color: #cccccc; text-decoration: none;">DJ SET Progressive House, Big Room/Techno &amp; Hardstyle</a></div>
                              </div>
                         </div>
                         </div>
@@ -574,9 +617,30 @@
                     </div>
                     <div id="videos-galeria" class="gallery-content" role="tabpanel" aria-labelledby="videos-tab-main">
                          <div class="video-grid">
-                            <div class="video-item reveal-on-scroll" data-video-src="placeholder_video_1.mp4"><div class="video-cover"><img src="img/SELOGO.jpg" alt="Portada Video RysonBl3nd"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>RysonBl3nd @ Terraza UTOPIA</p></div>
-                            <div class="video-item reveal-on-scroll" data-video-src="placeholder_video_2.mp4"><div class="video-cover"><img src="https://placehold.co/400x225/111111/ff00ff?text=Cover+S0IK" alt="Portada Video S0IK"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>S0IK @ UTOPIA</p></div>
-                            <div class="video-item reveal-on-scroll" data-video-src="placeholder_video_3.mp4"><div class="video-cover"><img src="https://placehold.co/400x225/111111/ffffff?text=Cover+Highlight" alt="Portada Video Highlight"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>Highlight Reel 2025</p></div>
+                             <!-- Video Item 1 -->
+                            <div class="video-item reveal-on-scroll" data-video-src="videos/video1.mp4">
+                                <video controls preload="metadata">
+                                    <source src="videos/video1.mp4" type="video/mp4">
+                                    Tu navegador no soporta la etiqueta de video.
+                                </video>
+                                <p>RysonBl3nd @ Terraza UTOPIA</p>
+                            </div>
+                            <!-- Video Item 2 -->
+                            <div class="video-item reveal-on-scroll" data-video-src="videos/video2.mp4">
+                                <video controls preload="metadata">
+                                    <source src="videos/video2.mp4" type="video/mp4">
+                                    Tu navegador no soporta la etiqueta de video.
+                                </video>
+                                <p>S0IK @ UTOPIA</p>
+                            </div>
+                            <!-- Video Item 3 (Placeholder) -->
+                            <div class="video-item reveal-on-scroll" data-video-src="videos/highlight.mp4">
+                                <video controls preload="metadata">
+                                    <source src="videos/highlight.mp4" type="video/mp4">
+                                    Tu navegador no soporta la etiqueta de video. (Highlight Reel 2025)
+                                </video>
+                                <p>Highlight Reel 2025</p>
+                            </div>
                         </div>
                     </div>
                     <div class="gallery-view-more">
@@ -647,23 +711,48 @@
             <div class="full-gallery-grid-container">
                 <div class="full-photo-grid">
                      <!-- Added 'lightbox-trigger' class to img -->
-                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/ALEX.jpg" alt="Foto Oficial 1" class="lightbox-trigger"></div>
-                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/RYSON.jpg" alt="Foto Oficial 2" class="lightbox-trigger"></div>
-                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/S0IK.jpg" alt="Foto Oficial 3" class="lightbox-trigger"></div>
-                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/S0IKNEOX.jpg" alt="Foto Oficial 4" class="lightbox-trigger"></div>
-                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalo/EQUIPO2.png" alt="Foto Oficial 5" class="lightbox-trigger"></div>
-                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalo/EQUIPOSE.jpg" alt="Foto Oficial 6" class="lightbox-trigger"></div>
-                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalo/RICHY.png" alt="Foto Oficial 7" class="lightbox-trigger"></div>
-                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalolibro/RYSON.jpg" alt="Foto Oficial 8" class="lightbox-trigger"></div>
-                     <div class="gallery-item" data-type="photo" data-source="user"><img src="https://placehold.co/300x300/333333/cccccc?text=Foto+Usuario+1" alt="Foto Usuario 1" class="lightbox-trigger"></div>
-                     <div class="gallery-item" data-type="photo" data-source="user"><img src="https://placehold.co/300x300/333333/cccccc?text=Foto+Usuario+2" alt="Foto Usuario 2" class="lightbox-trigger"></div>
+                     <div class="gallery-item photo-item" data-type="photo" data-source="official"><img src="eventos/Terraza/ALEX.jpg" alt="Foto Oficial 1" class="lightbox-trigger"></div>
+                     <div class="gallery-item photo-item" data-type="photo" data-source="official"><img src="eventos/Terraza/RYSON.jpg" alt="Foto Oficial 2" class="lightbox-trigger"></div>
+                     <div class="gallery-item photo-item" data-type="photo" data-source="official"><img src="eventos/Terraza/S0IK.jpg" alt="Foto Oficial 3" class="lightbox-trigger"></div>
+                     <div class="gallery-item photo-item" data-type="photo" data-source="official"><img src="eventos/Terraza/S0IKNEOX.jpg" alt="Foto Oficial 4" class="lightbox-trigger"></div>
+                     <div class="gallery-item photo-item" data-type="photo" data-source="official"><img src="eventos/zocalo/EQUIPO2.png" alt="Foto Oficial 5" class="lightbox-trigger"></div>
+                     <div class="gallery-item photo-item" data-type="photo" data-source="official"><img src="eventos/zocalo/EQUIPOSE.jpg" alt="Foto Oficial 6" class="lightbox-trigger"></div>
+                     <div class="gallery-item photo-item" data-type="photo" data-source="official"><img src="eventos/zocalo/RICHY.png" alt="Foto Oficial 7" class="lightbox-trigger"></div>
+                     <div class="gallery-item photo-item" data-type="photo" data-source="official"><img src="eventos/zocalolibro/RYSON.jpg" alt="Foto Oficial 8" class="lightbox-trigger"></div>
+                     <div class="gallery-item photo-item" data-type="photo" data-source="user"><img src="https://placehold.co/300x300/333333/cccccc?text=Foto+Usuario+1" alt="Foto Usuario 1" class="lightbox-trigger"></div>
+                     <div class="gallery-item photo-item" data-type="photo" data-source="user"><img src="https://placehold.co/300x300/333333/cccccc?text=Foto+Usuario+2" alt="Foto Usuario 2" class="lightbox-trigger"></div>
                 </div>
                  <div class="full-video-grid">
-                     <!-- Added 'lightbox-trigger' class to video cover img -->
-                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="placeholder_video_1.mp4"><div class="video-cover"><img src="img/SELOGO.jpg" alt="Portada Video RysonBl3nd" class="lightbox-trigger"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>RysonBl3nd @ Terraza UTOPIA</p></div>
-                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="placeholder_video_2.mp4"><div class="video-cover"><img src="https://placehold.co/400x225/111111/ff00ff?text=Cover+S0IK" alt="Portada Video S0IK" class="lightbox-trigger"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>S0IK @ UTOPIA</p></div>
-                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="placeholder_video_3.mp4"><div class="video-cover"><img src="https://placehold.co/400x225/111111/ffffff?text=Cover+Highlight" alt="Portada Video Highlight" class="lightbox-trigger"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>Highlight Reel 2025</p></div>
-                    <div class="gallery-item video-item" data-type="video" data-source="user" data-video-src="placeholder_video_user_1.mp4"><div class="video-cover"><img src="https://placehold.co/400x225/333333/cccccc?text=Cover+Usuario+1" alt="Portada Video Usuario 1" class="lightbox-trigger"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>Video de Asistente Evento X</p></div>
+                    <!-- Updated video items -->
+                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="videos/video1.mp4">
+                        <video controls preload="metadata">
+                             <source src="videos/video1.mp4" type="video/mp4">
+                             Tu navegador no soporta la etiqueta de video.
+                         </video>
+                         <p>RysonBl3nd @ Terraza UTOPIA</p>
+                    </div>
+                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="videos/video2.mp4">
+                        <video controls preload="metadata">
+                            <source src="videos/video2.mp4" type="video/mp4">
+                            Tu navegador no soporta la etiqueta de video.
+                        </video>
+                        <p>S0IK @ UTOPIA</p>
+                    </div>
+                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="videos/highlight.mp4">
+                         <video controls preload="metadata">
+                             <source src="videos/highlight.mp4" type="video/mp4">
+                             Tu navegador no soporta la etiqueta de video. (Highlight Reel 2025)
+                         </video>
+                         <p>Highlight Reel 2025</p>
+                    </div>
+                    <!-- Placeholder User Videos -->
+                    <div class="gallery-item video-item" data-type="video" data-source="user" data-video-src="videos/fan_video1.mp4">
+                         <video controls preload="metadata">
+                             <source src="videos/fan_video1.mp4" type="video/mp4">
+                             Tu navegador no soporta la etiqueta de video. (Video Fan 1)
+                         </video>
+                         <p>Video de Asistente Evento X</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -692,28 +781,35 @@
             const headerTitle = logoHomeLink.querySelector('.header-title');
             const menuToggle = document.getElementById('menu-toggle');
             const navigationOverlay = document.getElementById('navigation-menu');
-            const overlayNav = navigationOverlay.querySelector('nav'); // Get nav element inside overlay
+            const overlayNav = navigationOverlay.querySelector('nav');
             const overlayLinks = document.querySelectorAll('.overlay-link');
             const viewMoreGalleryBtn = document.getElementById('view-more-gallery-btn');
             const backToMainBtn = document.getElementById('back-to-main-btn');
             const filterButtons = document.querySelectorAll('#full-gallery-view .filter-btn');
             const galleryItems = document.querySelectorAll('#full-gallery-view .gallery-item');
-            const videoCoversInGrid = document.querySelectorAll('.video-cover');
+            const videosInGrid = document.querySelectorAll('.video-item video');
+            // Remove starsBg related code
 
             const lightboxOverlay = document.getElementById('lightbox-overlay');
             const lightboxImage = document.getElementById('lightbox-image');
             const lightboxCloseBtn = document.getElementById('lightbox-close');
-            const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+            const lightboxTriggers = document.querySelectorAll('.photo-item .lightbox-trigger');
+
 
             // --- Loader ---
             window.addEventListener('load', () => { if (loader) loader.classList.add('hidden'); });
 
             // --- Page Navigation & History ---
-            let currentPageId = 'inicio-page'; // Track current page
+            let currentPageId = 'inicio-page';
 
             function showPage(pageId, updateHistory = true) {
-                if (!pageId) pageId = 'inicio-page'; // Default to home if no pageId
-                currentPageId = pageId; // Update tracker
+                if (!pageId) pageId = 'inicio-page';
+                 const targetSection = document.getElementById(pageId);
+                 if (!targetSection) {
+                     console.warn(`Page section with ID "${pageId}" not found. Defaulting to home.`);
+                     pageId = 'inicio-page';
+                 }
+                currentPageId = pageId;
 
                 pageSections.forEach(section => { section.classList.toggle('active', section.id === pageId); });
                 const isHomePage = pageId === 'inicio-page';
@@ -721,12 +817,13 @@
                 headerTitle.classList.toggle('hidden', !isHomePage);
                 headerTitle.style.display = isHomePage ? 'block' : 'none';
 
-                // Update browser history
                 if (updateHistory) {
-                    // Use replaceState for the initial load to avoid pushing 'inicio-page' twice if reloading
-                    if (window.history.state === null || window.history.state.page !== pageId) {
-                         history.pushState({ page: pageId }, '', `#${pageId.replace('-page', '')}`); // Use cleaner URL hash
-                    }
+                     const cleanHash = pageId.replace('-page', '');
+                     if (window.history.state === null || window.history.state.page !== pageId) {
+                         history.pushState({ page: pageId }, '', `#${cleanHash}`);
+                     } else if (window.location.hash !== `#${cleanHash}`) {
+                         history.replaceState({ page: pageId }, '', `#${cleanHash}`);
+                     }
                 }
 
                 window.scrollTo(0, 0);
@@ -734,25 +831,24 @@
                     fullGalleryView.style.display = 'none';
                     mainContentView.style.display = 'block';
                 }
-                 // Reset scroll reveal elements visibility when page changes
                  resetScrollReveal();
             }
 
-            // Handle browser back/forward buttons
             window.onpopstate = function(event) {
-                if (event.state && event.state.page) {
-                    showPage(event.state.page, false); // Don't push state again
-                } else {
-                    // If state is null (e.g., initial load or manual hash change), try to match hash or default to home
-                    const hash = window.location.hash.substring(1);
-                    const targetPageId = hash ? `${hash}-page` : 'inicio-page';
-                    // Check if the target page exists before showing
-                    if(document.getElementById(targetPageId)){
-                         showPage(targetPageId, false);
-                    } else {
-                         showPage('inicio-page', false); // Default if hash doesn't match a page
-                    }
-                }
+                let targetPageId = 'inicio-page';
+                 if (event.state && event.state.page) {
+                     targetPageId = event.state.page;
+                 } else {
+                     const hash = window.location.hash.substring(1);
+                     if (hash && document.getElementById(`${hash}-page`)) {
+                         targetPageId = `${hash}-page`;
+                     }
+                 }
+                 if(document.getElementById(targetPageId)){
+                     showPage(targetPageId, false);
+                 } else {
+                     showPage('inicio-page', false);
+                 }
             };
 
 
@@ -770,18 +866,8 @@
             if (menuToggle && navigationOverlay) {
                 menuToggle.addEventListener('click', toggleMenu);
                 overlayLinks.forEach(link => link.addEventListener('click', (e) => { e.preventDefault(); showPage(link.dataset.page); toggleMenu(); }));
-
-                // Close menu when clicking the overlay background
-                navigationOverlay.addEventListener('click', (e) => {
-                    // Check if the click target is the overlay itself, not the nav or its children
-                    if (e.target === navigationOverlay) {
-                        toggleMenu();
-                    }
-                });
-                // Prevent clicks within the nav area from closing the menu
-                if(overlayNav) {
-                    overlayNav.addEventListener('click', (e) => e.stopPropagation());
-                }
+                navigationOverlay.addEventListener('click', (e) => { if (e.target === navigationOverlay) toggleMenu(); });
+                if(overlayNav) { overlayNav.addEventListener('click', (e) => e.stopPropagation()); }
             }
 
             // --- Gallery Tabs ---
@@ -809,50 +895,34 @@
                 imagesWrapper.style.width = `${totalSlides * 100}%`;
                 Array.from(imagesWrapper.children).forEach(img => img.style.width = `${100 / totalSlides}%`);
                 setInterval(() => {
-                    actualIndex = (actualIndex + 1) % totalSlides; // Use totalSlides for index cycling
+                    actualIndex++;
                     imagesWrapper.style.transition = 'transform 1s ease-in-out';
                     imagesWrapper.style.transform = `translateX(-${(actualIndex / totalSlides) * 100}%)`;
-                    // Smooth reset logic
                     if (actualIndex === totalRealImages) {
-                         // When the first clone is fully visible (index = totalRealImages)
-                         // Wait for transition, then jump back to the original first image without transition
-                        setTimeout(() => {
-                            imagesWrapper.style.transition = 'none';
-                            actualIndex = 0; // Reset index to the actual first image
-                            imagesWrapper.style.transform = `translateX(0%)`;
-                             // Re-enable transition after the jump for next movement
-                            // Use a tiny timeout to ensure the 'none' transition is applied before re-enabling
-                             setTimeout(() => {
-                                 imagesWrapper.style.transition = 'transform 1s ease-in-out';
-                             }, 50);
-                         }, 1000); // Must match CSS transition duration
+                         setTimeout(() => {
+                            imagesWrapper.style.transition = 'none'; actualIndex = 0; imagesWrapper.style.transform = `translateX(0%)`;
+                             setTimeout(() => { imagesWrapper.style.transition = 'transform 1s ease-in-out'; }, 50);
+                         }, 1000);
                     }
-                }, 3500); // Adjusted interval
+                }, 3500);
             });
 
 
             // --- Scroll Reveal ---
             const revealElements = document.querySelectorAll('.reveal-on-scroll');
-            let revealObserver; // Declare observer variable
-
+            let revealObserver;
              function setupScrollReveal() {
-                 // Disconnect previous observer if exists
                  if (revealObserver) { revealObserver.disconnect(); }
-
                 revealObserver = new IntersectionObserver((entries) => {
                      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
                  }, { threshold: 0.1 });
                  revealElements.forEach(el => revealObserver.observe(el));
              }
-
              function resetScrollReveal() {
                  revealElements.forEach(el => {
                      el.classList.remove('is-visible');
-                     // Re-observe if needed, or let setupScrollReveal handle it
                      if (revealObserver) { revealObserver.unobserve(el); revealObserver.observe(el); }
                  });
-                 // Re-setup observer might be needed if elements change drastically
-                 // setupScrollReveal(); // Uncomment if you face issues with elements not revealing after page change
              }
 
 
@@ -891,7 +961,7 @@
                 });
             });
 
-            // --- Lightbox Logic ---
+            // --- Lightbox Logic (Only for Images) ---
             function openLightbox(src) {
                 if (!lightboxOverlay || !lightboxImage) return;
                 lightboxImage.setAttribute('src', src); lightboxOverlay.classList.remove('hidden');
@@ -903,41 +973,27 @@
                  setTimeout(() => { lightboxOverlay.classList.add('hidden'); lightboxImage.setAttribute('src', ''); }, 400);
             }
             lightboxTriggers.forEach(trigger => { trigger.addEventListener('click', (e) => { e.stopPropagation(); const imageUrl = trigger.getAttribute('src'); if (imageUrl) openLightbox(imageUrl); }); });
-            if (lightboxOverlay) { lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) closeLightbox(); }); }
-            if (lightboxCloseBtn) { lightboxCloseBtn.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); }); }
-            if (lightboxImage) { lightboxImage.addEventListener('click', (e) => e.stopPropagation()); }
 
-            // --- Video Cover Click Logic (Placeholder) ---
-             videoCoversInGrid.forEach(cover => {
-                if (!cover.querySelector('.lightbox-trigger')) {
-                     cover.addEventListener('click', () => {
-                        const videoItem = cover.closest('.video-item'); const videoSrc = videoItem ? videoItem.dataset.videoSrc : null;
-                        console.log('Attempting to play video (in grid):', videoSrc);
-                        if (videoItem) {
-                            cover.style.display = 'none'; const message = document.createElement('p');
-                            message.textContent = `Video placeholder for: ${videoSrc || 'unknown source'}`;
-                            message.style.padding = '2rem'; message.style.textAlign = 'center'; message.style.color = 'var(--color-text-secondary)';
-                            videoItem.appendChild(message); const titlePara = videoItem.querySelector('p');
-                            if(titlePara && titlePara !== message) { titlePara.style.display = 'none'; }
-                        }
-                    });
-                }
-            });
+             if (lightboxOverlay) { lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) closeLightbox(); }); }
+             if (lightboxCloseBtn) { lightboxCloseBtn.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); }); }
+             if (lightboxImage) { lightboxImage.addEventListener('click', (e) => e.stopPropagation()); }
+
+             // Remove Hero Background Animation JS code
+             // function createStars(...) {}
+             // function createComets(...) {}
+             // if (starsBg) { ... }
+
 
             // --- Initialize ---
-             // Check hash on initial load to show correct page or default to home
             const initialHash = window.location.hash.substring(1);
-            const initialPageId = initialHash ? `${initialHash}-page` : 'inicio-page';
-             // Verify the initial page exists before showing
-            if (document.getElementById(initialPageId)) {
-                showPage(initialPageId, false); // Show initial page without pushing history
-                 // Set initial state for history API
-                 history.replaceState({ page: initialPageId }, '', `#${initialHash}`);
-             } else {
-                 showPage('inicio-page', false); // Default to home if hash is invalid
-                 history.replaceState({ page: 'inicio-page' }, '', '#inicio');
+            let initialPageId = 'inicio-page';
+             if (initialHash && document.getElementById(`${initialHash}-page`)) {
+                 initialPageId = `${initialHash}-page`;
              }
-             setupScrollReveal(); // Initial setup for scroll reveal
+            showPage(initialPageId, false);
+             history.replaceState({ page: initialPageId }, '', `#${initialPageId.replace('-page', '')}`);
+
+             setupScrollReveal();
 
         });
     </script>
