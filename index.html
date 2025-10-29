@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Eyes Festival - Fusión</title>
+    <title>Star Eyes Festival</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,8 +42,8 @@
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Prevent scroll when menu is open */
-        body.menu-open { overflow: hidden; }
+        /* Prevent scroll when menu or lightbox is open */
+        body.menu-open, body.lightbox-open { overflow: hidden; }
 
         /* --- Loader --- */
         .loader {
@@ -95,6 +95,7 @@
             background-color: rgba(255, 255, 255, 0.1); color: var(--color-text-primary); border: 1px solid var(--color-border);
             padding: 0.7rem 1.5rem; font-size: 0.85rem; margin-top: 0.5rem;
         }
+        .banner-nav-btn i { margin-right: 0.3rem; font-size: 0.8em; } /* Icon spacing */
         .banner-nav-btn:hover { background-color: rgba(255, 255, 255, 0.2); border-color: var(--color-white); color: var(--color-white); }
         .primary-btn { background-color: var(--color-white); color: var(--color-black); border-color: var(--color-white); }
         .primary-btn:hover { background-color: var(--color-dark-bg); color: var(--color-white); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); }
@@ -102,8 +103,43 @@
         .secondary-btn:hover { background-color: var(--color-dark-bg); color: var(--color-accent-primary); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3); }
         .tertiary-btn { background-color: transparent; color: var(--color-white); border-color: var(--color-border); }
         .tertiary-btn:hover { background-color: var(--color-card-bg); border-color: var(--color-white); color: var(--color-white); transform: translateY(-2px); }
-        .linktree-btn { background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary)); color: var(--color-black); border: none; }
-        .linktree-btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(255, 0, 255, 0.3); }
+        /* Linktree button in banner */
+        .linktree-btn-banner {
+            background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary));
+            color: var(--color-black); border: none; padding: 0.7rem 1.5rem; font-size: 0.85rem; margin-top: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2), 0 4px 15px rgba(255, 0, 255, 0.2);
+            animation: pulse 2s infinite;
+        }
+         .linktree-btn-banner:hover {
+            opacity: 0.9; transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4), 0 6px 20px rgba(255, 0, 255, 0.4);
+            animation-play-state: paused; /* Pause animation on hover */
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Enhanced Filter Buttons --- */
+        .filter-btn {
+            background-color: transparent; color: var(--color-text-secondary); border: 1px solid var(--color-border);
+            padding: 0.6rem 1.5rem; margin: 0.3rem 0.4rem; border-radius: 50px; font-size: 0.85rem;
+            font-weight: 600; font-family: var(--font-title); cursor: pointer; transition: all var(--transition-medium);
+            text-transform: uppercase; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 0.4rem; /* For icon */
+        }
+        .filter-btn i { font-size: 0.9em; } /* Icon size */
+        .filter-btn:hover {
+            background-color: var(--color-card-bg); color: var(--color-white); border-color: var(--color-white);
+            transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .filter-btn.active {
+            background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary));
+            color: var(--color-black); border-color: transparent;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2), 0 4px 15px rgba(255, 0, 255, 0.2);
+            font-weight: 700;
+        }
+
 
         /* Back to Home Button */
         .back-to-home { text-align: center; margin-top: 4rem; padding-bottom: 2rem; }
@@ -118,11 +154,10 @@
         .header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo-link {
             display: flex; align-items: center; height: 35px; z-index: 1100; position: relative;
-            text-decoration: none; /* Remove underline from link */
-            color: var(--color-white); /* Set default text color */
+            text-decoration: none; color: var(--color-white);
          }
         .logo-img { max-width: 200px; height: auto; display: block; transition: opacity var(--transition-medium); }
-        .header-title { /* Style for "Bienvenidos" text */
+        .header-title {
             font-family: var(--font-title); font-weight: 700; font-size: 1.2rem;
             text-transform: uppercase; letter-spacing: 1px;
             display: none; /* Hide by default */
@@ -144,22 +179,24 @@
             transform: rotate(0deg); transition: var(--transition-medium);
         }
         .menu-toggle .icon span:nth-child(1) { top: 0px; }
-        .menu-toggle .icon span:nth-child(2) { top: 8px; }
+        .menu-toggle .icon span:nth-child(2) { top: 8px; /* Adjusted gap slightly for visual clarity */ }
         .menu-toggle .menu-text { transition: opacity var(--transition-medium); }
 
         /* Menu Open State Styles */
-        body.menu-open .menu-toggle .icon span:nth-child(1) { top: 8px; transform: rotate(135deg); }
-        body.menu-open .menu-toggle .icon span:nth-child(2) { top: 8px; transform: rotate(-135deg); }
+        body.menu-open .menu-toggle .icon span:nth-child(1) { top: 8px; transform: rotate(135deg); } /* Rotate first line */
+        body.menu-open .menu-toggle .icon span:nth-child(2) { top: 8px; transform: rotate(-135deg); } /* Rotate second line */
         body.menu-open .menu-toggle .menu-text { opacity: 0; }
-        body.menu-open .logo-img { opacity: 0; pointer-events: none; } /* Hide logo when menu open */
+        body.menu-open .logo-img, body.menu-open .header-title { opacity: 0; pointer-events: none; } /* Hide logo/title when menu open */
 
         /* Full Screen Navigation Overlay (Garrix Style) */
         .navigation-overlay {
             position: fixed; inset: 0; background-color: var(--color-black); z-index: 1050; /* Below header content, above page */
             display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden;
             transition: opacity var(--transition-slow), visibility var(--transition-slow);
+            cursor: pointer; /* Allow closing by clicking overlay */
         }
         body.menu-open .navigation-overlay { opacity: 1; visibility: visible; }
+        .navigation-overlay nav { cursor: default; /* Prevent closing when clicking nav area */}
         .navigation-overlay nav ul { list-style: none; text-align: center; }
         .navigation-overlay nav ul li { margin: 1rem 0; }
         .navigation-overlay nav ul li a {
@@ -167,6 +204,7 @@
             text-decoration: none; text-transform: uppercase; font-weight: 900; letter-spacing: 1px;
             display: inline-block; position: relative; padding: 0.5rem 0; transition: color var(--transition-fast);
              opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s, color var(--transition-fast); /* Stagger animation */
+             cursor: pointer; /* Ensure links are clickable */
         }
         body.menu-open .navigation-overlay nav ul li a { opacity: 1; transform: translateY(0); }
          /* Stagger animation delay */
@@ -273,18 +311,18 @@
         .full-gallery-header h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--color-white); text-transform: uppercase; letter-spacing: 1px; margin: 0; }
         #back-to-main-btn { padding: 0.7rem 1.5rem; font-size: 0.8rem; }
         .gallery-filters { margin-bottom: 3rem; text-align: center; }
-        .full-gallery-grid-container { /* Add animation */ animation: fadeInGrid 0.8s ease-out forwards; opacity: 0; }
+        .full-gallery-grid-container { animation: fadeInGrid 0.8s ease-out forwards; opacity: 0; }
         @keyframes fadeInGrid { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .full-photo-grid, .full-video-grid { display: grid; gap: 1.5rem; }
         .full-photo-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-        .gallery-item { display: block; /* Default is block, will be hidden by JS */ transition: opacity 0.3s ease, transform 0.3s ease; } /* Add transition for filtering */
-        .gallery-item.hidden-filter { opacity: 0; transform: scale(0.95); pointer-events: none; height: 0; margin: 0; padding: 0; border: none; overflow: hidden; /* Hide completely for layout */ display: none; /* Final fallback */}
+        .gallery-item { display: block; transition: opacity 0.3s ease, transform 0.3s ease; cursor: pointer; } /* Added cursor */
+        .gallery-item.hidden-filter { opacity: 0; transform: scale(0.95); pointer-events: none; height: 0; margin: 0; padding: 0; border: none; overflow: hidden; display: none; }
 
         .full-photo-grid .gallery-item img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px; border: 1px solid var(--color-border); transition: transform var(--transition-fast), border-color var(--transition-fast); }
         .full-photo-grid .gallery-item img:hover { transform: scale(1.03); border-color: var(--color-accent-secondary); }
         .full-video-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-        .full-video-grid .gallery-item { display: flex; /* Override default block for video items */ }
+        .full-video-grid .gallery-item { display: flex; } /* Override display for video items */
 
 
         /* --- Contact Section --- */
@@ -314,19 +352,54 @@
         .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: opacity, transform; }
         .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 
+        /* --- Lightbox Styles --- */
+        .lightbox-overlay {
+            position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.85);
+            display: flex; justify-content: center; align-items: center; z-index: 2000;
+            opacity: 0; visibility: hidden; transition: opacity var(--transition-medium), visibility var(--transition-medium);
+            cursor: pointer; padding: 2rem;
+        }
+        .lightbox-overlay.active { opacity: 1; visibility: visible; }
+        .lightbox-content {
+            position: relative;
+            /* Remove fixed max-width/height, let image dictate */
+            cursor: default;
+            transform: scale(0.9); transition: transform var(--transition-medium);
+        }
+        .lightbox-overlay.active .lightbox-content { transform: scale(1); }
+        #lightbox-image {
+            display: block;
+            /* Constrain image size based on viewport, maintaining aspect ratio */
+            max-width: 85vw;  /* Max width relative to viewport width */
+            max-height: 85vh; /* Max height relative to viewport height */
+            width: auto;      /* Let width adjust based on height constraint */
+            height: auto;     /* Let height adjust based on width constraint */
+            object-fit: contain; /* Ensure entire image fits */
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .lightbox-close {
+            position: absolute; top: 1rem; right: 1rem; font-size: 2.5rem; color: rgba(255, 255, 255, 0.7);
+            background: none; border: none; cursor: pointer; transition: color var(--transition-fast);
+            line-height: 1; padding: 0.5rem; z-index: 2001;
+        }
+        .lightbox-close:hover { color: var(--color-white); }
+
+
         /* --- Responsiveness --- */
         @media (max-width: 992px) {
             html { font-size: 15px; } .container { padding: 0 1.5rem; } section.page-section { padding: 5rem 0; }
             #full-gallery-view { padding: 3rem 0 5rem; }
             .banner-nav-btn { padding: 0.6rem 1.2rem; font-size: 0.8rem; }
-            #inicio-page .hero { min-height: calc(100vh - 67px); } /* Adjust for smaller header */
+            #inicio-page .hero { min-height: calc(100vh - 67px); }
+             #lightbox-image { max-width: 90vw; max-height: 90vh; } /* Allow slightly larger on medium screens */
         }
         @media (max-width: 768px) {
             html { font-size: 14px; } .container { padding: 0 1rem; } section.page-section { padding: 4rem 0; }
             #full-gallery-view { padding: 2rem 0 4rem; }
-            .menu-toggle { display: flex; /* Ensure button always visible */}
-            .nav { display: none; } /* Hide the inline nav on mobile */
-            #inicio-page .hero { min-height: calc(100vh - 67px); padding: 4rem 0;} /* Adjust hero height & padding */
+            .menu-toggle { display: flex; }
+            .nav { display: none; }
+            #inicio-page .hero { min-height: calc(100vh - 67px); padding: 4rem 0;}
             .hero-content p { margin: 0 auto 1.5rem; }
             .banner-nav-buttons { gap: 0.5rem; }
             .event-card { flex-direction: column; align-items: flex-start; text-align: left; }
@@ -337,6 +410,9 @@
             .full-video-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
             .gallery-filters { margin-bottom: 2rem; }
             .filter-btn { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
+            .lightbox-overlay { padding: 1rem; }
+             .lightbox-close { top: 0.5rem; right: 0.5rem; font-size: 2rem; }
+             #lightbox-image { max-width: 95vw; max-height: 90vh; } /* Further adjust for mobile */
         }
         @media (max-width: 480px) {
             html { font-size: 13px; } .section-title { margin-bottom: 3rem; }
@@ -348,7 +424,7 @@
             .full-gallery-header { flex-direction: column; align-items: flex-start; }
             .gallery-filters { margin-bottom: 1.5rem; }
             .filter-btn { margin: 0.2rem 0.3rem; }
-            .header-title { font-size: 1rem; } /* Adjust title size on mobile */
+            .header-title { font-size: 1rem; }
         }
     </style>
 </head>
@@ -362,9 +438,9 @@
     <header class="header">
         <div class="container">
             <!-- Modified Link to contain both logo and title -->
-            <a href="#" class="logo-link" id="logo-home-link">
+            <a href="#inicio-page" class="logo-link" id="logo-home-link"> <!-- Ensure href points to the page id -->
                 <img src="img/STAREYES.png" alt="Logo de Star Eyes Festival" class="logo-img">
-                <span class="header-title">Bienvenidos</span>
+                <span class="header-title hidden">Bienvenidos</span> <!-- Initially hidden -->
             </a>
             <!-- Garrix Style Menu Button -->
             <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navigation-menu">
@@ -379,12 +455,12 @@
         <nav>
             <ul>
                 <!-- Links now control page visibility -->
-                <li><a href="#inicio" class="nav-link overlay-link" data-page="inicio-page">INICIO</a></li>
-                <li><a href="#djs" class="nav-link overlay-link" data-page="djs-page">DJs</a></li>
-                <li><a href="#musica" class="nav-link overlay-link" data-page="musica-page">MÚSICA & DJ SETS</a></li>
-                <li><a href="#eventos" class="nav-link overlay-link" data-page="eventos-page">EVENTOS</a></li>
-                <li><a href="#galeria" class="nav-link overlay-link" data-page="galeria-page">GALERÍA</a></li>
-                <li><a href="#contacto" class="nav-link overlay-link" data-page="contacto-page">CONTACTO</a></li>
+                <li><a href="#inicio-page" class="nav-link overlay-link" data-page="inicio-page">INICIO</a></li>
+                <li><a href="#djs-page" class="nav-link overlay-link" data-page="djs-page">DJs</a></li>
+                <li><a href="#musica-page" class="nav-link overlay-link" data-page="musica-page">MÚSICA & DJ SETS</a></li>
+                <li><a href="#eventos-page" class="nav-link overlay-link" data-page="eventos-page">EVENTOS</a></li>
+                <li><a href="#galeria-page" class="nav-link overlay-link" data-page="galeria-page">GALERÍA</a></li>
+                <li><a href="#contacto-page" class="nav-link overlay-link" data-page="contacto-page">CONTACTO</a></li>
             </ul>
         </nav>
     </div>
@@ -405,7 +481,10 @@
                             <button class="btn banner-nav-btn" data-page="eventos-page"><i class="fas fa-calendar-alt"></i> Eventos</button>
                             <button class="btn banner-nav-btn" data-page="galeria-page"><i class="fas fa-images"></i> Galería</button>
                             <button class="btn banner-nav-btn" data-page="contacto-page"><i class="fas fa-envelope"></i> Contacto</button>
-                            
+                             <!-- Added Second Linktree Button -->
+                             <a href="https://linktr.ee/stareyesfestival" target="_blank" rel="noopener noreferrer" class="btn linktree-btn-banner">
+                                <i class="fas fa-share-alt" aria-hidden="true"></i> Linktree
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -551,43 +630,53 @@
         </footer>
     </div> <!-- End #main-content-view -->
 
-    <!-- Full Gallery View (Remains separate for now, shown via button) -->
-    <div id="full-gallery-view" style="display: none;"> <!-- Keep it initially hidden -->
+    <!-- Full Gallery View (Remains separate) -->
+    <div id="full-gallery-view" style="display: none;">
         <div class="container">
              <div class="full-gallery-header">
                  <h2>Galería Completa</h2>
                  <button id="back-to-main-btn" class="btn tertiary-btn"><i class="fas fa-arrow-left" aria-hidden="true"></i> Regresar</button>
             </div>
+            <!-- Enhanced Filter Buttons -->
             <div class="gallery-filters">
-                <button class="filter-btn active" data-filter="all">Todo</button>
-                <button class="filter-btn" data-filter="photo">Fotos</button>
-                <button class="filter-btn" data-filter="video">Videos</button>
-                <button class="filter-btn" data-filter="user">Contenido Usuarios</button>
+                <button class="filter-btn active" data-filter="all"><i class="fas fa-grip-horizontal"></i> Todo</button>
+                <button class="filter-btn" data-filter="photo"><i class="fas fa-image"></i> Fotos</button>
+                <button class="filter-btn" data-filter="video"><i class="fas fa-video"></i> Videos</button>
+                <button class="filter-btn" data-filter="user"><i class="fas fa-users"></i> De Fans</button>
             </div>
             <div class="full-gallery-grid-container">
                 <div class="full-photo-grid">
-                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/ALEX.jpg" alt="Foto Oficial 1"></div>
-                    <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/RYSON.jpg" alt="Foto Oficial 2"></div>
-                    <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/S0IK.jpg" alt="Foto Oficial 3"></div>
-                    <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/S0IKNEOX.jpg" alt="Foto Oficial 4"></div>
-                    <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalo/EQUIPO2.png" alt="Foto Oficial 5"></div>
-                    <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalo/EQUIPOSE.jpg" alt="Foto Oficial 6"></div>
-                    <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalo/RICHY.png" alt="Foto Oficial 7"></div>
-                    <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalolibro/RYSON.jpg" alt="Foto Oficial 8"></div>
-                     <!-- Placeholder User Photos -->
-                    <div class="gallery-item" data-type="photo" data-source="user"><img src="https://placehold.co/300x300/333333/cccccc?text=Foto+Usuario+1" alt="Foto Usuario 1"></div>
-                    <div class="gallery-item" data-type="photo" data-source="user"><img src="https://placehold.co/300x300/333333/cccccc?text=Foto+Usuario+2" alt="Foto Usuario 2"></div>
+                     <!-- Added 'lightbox-trigger' class to img -->
+                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/ALEX.jpg" alt="Foto Oficial 1" class="lightbox-trigger"></div>
+                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/RYSON.jpg" alt="Foto Oficial 2" class="lightbox-trigger"></div>
+                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/S0IK.jpg" alt="Foto Oficial 3" class="lightbox-trigger"></div>
+                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/Terraza/S0IKNEOX.jpg" alt="Foto Oficial 4" class="lightbox-trigger"></div>
+                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalo/EQUIPO2.png" alt="Foto Oficial 5" class="lightbox-trigger"></div>
+                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalo/EQUIPOSE.jpg" alt="Foto Oficial 6" class="lightbox-trigger"></div>
+                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalo/RICHY.png" alt="Foto Oficial 7" class="lightbox-trigger"></div>
+                     <div class="gallery-item" data-type="photo" data-source="official"><img src="eventos/zocalolibro/RYSON.jpg" alt="Foto Oficial 8" class="lightbox-trigger"></div>
+                     <div class="gallery-item" data-type="photo" data-source="user"><img src="https://placehold.co/300x300/333333/cccccc?text=Foto+Usuario+1" alt="Foto Usuario 1" class="lightbox-trigger"></div>
+                     <div class="gallery-item" data-type="photo" data-source="user"><img src="https://placehold.co/300x300/333333/cccccc?text=Foto+Usuario+2" alt="Foto Usuario 2" class="lightbox-trigger"></div>
                 </div>
                  <div class="full-video-grid">
-                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="placeholder_video_1.mp4"><div class="video-cover"><img src="img/SELOGO.jpg" alt="Portada Video RysonBl3nd"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>RysonBl3nd @ Terraza UTOPIA</p></div>
-                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="placeholder_video_2.mp4"><div class="video-cover"><img src="https://placehold.co/400x225/111111/ff00ff?text=Cover+S0IK" alt="Portada Video S0IK"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>S0IK @ UTOPIA</p></div>
-                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="placeholder_video_3.mp4"><div class="video-cover"><img src="https://placehold.co/400x225/111111/ffffff?text=Cover+Highlight" alt="Portada Video Highlight"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>Highlight Reel 2025</p></div>
-                    <!-- Placeholder User Videos -->
-                    <div class="gallery-item video-item" data-type="video" data-source="user" data-video-src="placeholder_video_user_1.mp4"><div class="video-cover"><img src="https://placehold.co/400x225/333333/cccccc?text=Cover+Usuario+1" alt="Portada Video Usuario 1"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>Video de Asistente Evento X</p></div>
+                     <!-- Added 'lightbox-trigger' class to video cover img -->
+                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="placeholder_video_1.mp4"><div class="video-cover"><img src="img/SELOGO.jpg" alt="Portada Video RysonBl3nd" class="lightbox-trigger"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>RysonBl3nd @ Terraza UTOPIA</p></div>
+                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="placeholder_video_2.mp4"><div class="video-cover"><img src="https://placehold.co/400x225/111111/ff00ff?text=Cover+S0IK" alt="Portada Video S0IK" class="lightbox-trigger"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>S0IK @ UTOPIA</p></div>
+                    <div class="gallery-item video-item" data-type="video" data-source="official" data-video-src="placeholder_video_3.mp4"><div class="video-cover"><img src="https://placehold.co/400x225/111111/ffffff?text=Cover+Highlight" alt="Portada Video Highlight" class="lightbox-trigger"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>Highlight Reel 2025</p></div>
+                    <div class="gallery-item video-item" data-type="video" data-source="user" data-video-src="placeholder_video_user_1.mp4"><div class="video-cover"><img src="https://placehold.co/400x225/333333/cccccc?text=Cover+Usuario+1" alt="Portada Video Usuario 1" class="lightbox-trigger"><div class="video-play-button"><i class="fas fa-play"></i></div></div><p>Video de Asistente Evento X</p></div>
                 </div>
             </div>
         </div>
     </div> <!-- End #full-gallery-view -->
+
+    <!-- Lightbox Structure -->
+    <div id="lightbox-overlay" class="lightbox-overlay hidden">
+      <div class="lightbox-content">
+        <img id="lightbox-image" src="" alt="Imagen ampliada">
+      </div>
+       <button id="lightbox-close" class="lightbox-close" aria-label="Cerrar">&times;</button>
+    </div>
+
 
     <!-- JavaScript -->
     <script>
@@ -599,74 +688,77 @@
             const bannerNavButtons = document.querySelectorAll('.banner-nav-btn');
             const backHomeButtons = document.querySelectorAll('.back-home-btn');
             const logoHomeLink = document.getElementById('logo-home-link');
-            const logoImage = logoHomeLink.querySelector('.logo-img'); // Get the logo image
-            const headerTitle = logoHomeLink.querySelector('.header-title'); // Get the title span
+            const logoImage = logoHomeLink.querySelector('.logo-img');
+            const headerTitle = logoHomeLink.querySelector('.header-title');
             const menuToggle = document.getElementById('menu-toggle');
             const navigationOverlay = document.getElementById('navigation-menu');
+            const overlayNav = navigationOverlay.querySelector('nav'); // Get nav element inside overlay
             const overlayLinks = document.querySelectorAll('.overlay-link');
             const viewMoreGalleryBtn = document.getElementById('view-more-gallery-btn');
-            const backToMainBtn = document.getElementById('back-to-main-btn'); // Back from full gallery
+            const backToMainBtn = document.getElementById('back-to-main-btn');
             const filterButtons = document.querySelectorAll('#full-gallery-view .filter-btn');
             const galleryItems = document.querySelectorAll('#full-gallery-view .gallery-item');
-            const videoCovers = document.querySelectorAll('.video-cover'); // Select all video covers
+            const videoCoversInGrid = document.querySelectorAll('.video-cover');
+
+            const lightboxOverlay = document.getElementById('lightbox-overlay');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxCloseBtn = document.getElementById('lightbox-close');
+            const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
 
             // --- Loader ---
-            window.addEventListener('load', () => {
-                if (loader) loader.classList.add('hidden');
-            });
+            window.addEventListener('load', () => { if (loader) loader.classList.add('hidden'); });
 
-            // --- Page Navigation Logic ---
-            function showPage(pageId) {
-                pageSections.forEach(section => {
-                    section.classList.toggle('active', section.id === pageId);
-                });
+            // --- Page Navigation & History ---
+            let currentPageId = 'inicio-page'; // Track current page
 
-                // --- Header Content Toggle ---
-                if (pageId === 'inicio-page') {
-                    logoImage.classList.add('hidden');
-                    headerTitle.classList.remove('hidden');
-                    headerTitle.style.display = 'block'; // Ensure it's visible
-                } else {
-                    logoImage.classList.remove('hidden');
-                    headerTitle.classList.add('hidden');
-                    headerTitle.style.display = 'none'; // Ensure it's hidden
+            function showPage(pageId, updateHistory = true) {
+                if (!pageId) pageId = 'inicio-page'; // Default to home if no pageId
+                currentPageId = pageId; // Update tracker
+
+                pageSections.forEach(section => { section.classList.toggle('active', section.id === pageId); });
+                const isHomePage = pageId === 'inicio-page';
+                logoImage.classList.toggle('hidden', isHomePage);
+                headerTitle.classList.toggle('hidden', !isHomePage);
+                headerTitle.style.display = isHomePage ? 'block' : 'none';
+
+                // Update browser history
+                if (updateHistory) {
+                    // Use replaceState for the initial load to avoid pushing 'inicio-page' twice if reloading
+                    if (window.history.state === null || window.history.state.page !== pageId) {
+                         history.pushState({ page: pageId }, '', `#${pageId.replace('-page', '')}`); // Use cleaner URL hash
+                    }
                 }
-                // --- End Header Content Toggle ---
 
-                window.scrollTo(0, 0); // Scroll to top when changing page
-
+                window.scrollTo(0, 0);
                 if (pageId !== 'galeria-page' && fullGalleryView.style.display === 'block') {
                     fullGalleryView.style.display = 'none';
                     mainContentView.style.display = 'block';
                 }
+                 // Reset scroll reveal elements visibility when page changes
+                 resetScrollReveal();
             }
 
-            // Banner buttons navigation
-            bannerNavButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const pageId = button.dataset.page;
-                    showPage(pageId);
-                });
-            });
-
-            // Back to home buttons navigation
-            backHomeButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const pageId = button.dataset.page;
-                    showPage(pageId);
-                });
-            });
-
-             // Logo link navigation to home
-            if (logoHomeLink) {
-                logoHomeLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    showPage('inicio-page');
-                    if (document.body.classList.contains('menu-open')) {
-                        toggleMenu();
+            // Handle browser back/forward buttons
+            window.onpopstate = function(event) {
+                if (event.state && event.state.page) {
+                    showPage(event.state.page, false); // Don't push state again
+                } else {
+                    // If state is null (e.g., initial load or manual hash change), try to match hash or default to home
+                    const hash = window.location.hash.substring(1);
+                    const targetPageId = hash ? `${hash}-page` : 'inicio-page';
+                    // Check if the target page exists before showing
+                    if(document.getElementById(targetPageId)){
+                         showPage(targetPageId, false);
+                    } else {
+                         showPage('inicio-page', false); // Default if hash doesn't match a page
                     }
-                });
-            }
+                }
+            };
+
+
+            bannerNavButtons.forEach(button => button.addEventListener('click', () => showPage(button.dataset.page)));
+            backHomeButtons.forEach(button => button.addEventListener('click', () => showPage(button.dataset.page)));
+            if (logoHomeLink) { logoHomeLink.addEventListener('click', (e) => { e.preventDefault(); showPage('inicio-page'); if (document.body.classList.contains('menu-open')) toggleMenu(); }); }
 
             // --- Garrix Style Menu ---
              function toggleMenu() {
@@ -675,36 +767,37 @@
                 menuToggle.setAttribute('aria-expanded', isOpening);
                 menuToggle.setAttribute('aria-label', isOpening ? 'Cerrar menú' : 'Abrir menú');
             }
-
             if (menuToggle && navigationOverlay) {
                 menuToggle.addEventListener('click', toggleMenu);
+                overlayLinks.forEach(link => link.addEventListener('click', (e) => { e.preventDefault(); showPage(link.dataset.page); toggleMenu(); }));
 
-                overlayLinks.forEach(link => {
-                    link.addEventListener('click', (e) => {
-                         e.preventDefault();
-                         const pageId = link.dataset.page;
-                         showPage(pageId);
-                         toggleMenu();
-                    });
+                // Close menu when clicking the overlay background
+                navigationOverlay.addEventListener('click', (e) => {
+                    // Check if the click target is the overlay itself, not the nav or its children
+                    if (e.target === navigationOverlay) {
+                        toggleMenu();
+                    }
                 });
+                // Prevent clicks within the nav area from closing the menu
+                if(overlayNav) {
+                    overlayNav.addEventListener('click', (e) => e.stopPropagation());
+                }
             }
 
-            // --- Gallery Tabs (Inside Gallery Page) ---
+            // --- Gallery Tabs ---
             const galleryPageTabButtons = document.querySelectorAll('#galeria-page .tab-btn');
             const galleryPageContents = document.querySelectorAll('#galeria-page .gallery-content');
-
             galleryPageTabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     galleryPageTabButtons.forEach(btn => btn.classList.remove('active'));
                     galleryPageContents.forEach(content => content.classList.remove('active'));
                     button.classList.add('active');
-                    const targetTabId = button.dataset.tab;
-                    const targetContent = document.getElementById(targetTabId);
+                    const targetContent = document.getElementById(button.dataset.tab);
                     if (targetContent) targetContent.classList.add('active');
                 });
             });
 
-            // --- Photo Carousel (Inside Gallery Page) ---
+            // --- Photo Carousel ---
             const photoCarousels = document.querySelectorAll('#galeria-page .photo-carousel-item');
             photoCarousels.forEach(carouselItem => {
                 const imagesWrapper = carouselItem.querySelector('.carousel-images-wrapper');
@@ -716,36 +809,61 @@
                 imagesWrapper.style.width = `${totalSlides * 100}%`;
                 Array.from(imagesWrapper.children).forEach(img => img.style.width = `${100 / totalSlides}%`);
                 setInterval(() => {
-                    actualIndex++;
+                    actualIndex = (actualIndex + 1) % totalSlides; // Use totalSlides for index cycling
                     imagesWrapper.style.transition = 'transform 1s ease-in-out';
                     imagesWrapper.style.transform = `translateX(-${(actualIndex / totalSlides) * 100}%)`;
+                    // Smooth reset logic
                     if (actualIndex === totalRealImages) {
-                        setTimeout(() => { imagesWrapper.style.transition = 'none'; actualIndex = 0; imagesWrapper.style.transform = `translateX(0%)`; }, 1000);
+                         // When the first clone is fully visible (index = totalRealImages)
+                         // Wait for transition, then jump back to the original first image without transition
+                        setTimeout(() => {
+                            imagesWrapper.style.transition = 'none';
+                            actualIndex = 0; // Reset index to the actual first image
+                            imagesWrapper.style.transform = `translateX(0%)`;
+                             // Re-enable transition after the jump for next movement
+                            // Use a tiny timeout to ensure the 'none' transition is applied before re-enabling
+                             setTimeout(() => {
+                                 imagesWrapper.style.transition = 'transform 1s ease-in-out';
+                             }, 50);
+                         }, 1000); // Must match CSS transition duration
                     }
-                }, 2500);
+                }, 3500); // Adjusted interval
             });
+
 
             // --- Scroll Reveal ---
             const revealElements = document.querySelectorAll('.reveal-on-scroll');
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
-            }, { threshold: 0.1 });
-            revealElements.forEach(el => revealObserver.observe(el));
+            let revealObserver; // Declare observer variable
+
+             function setupScrollReveal() {
+                 // Disconnect previous observer if exists
+                 if (revealObserver) { revealObserver.disconnect(); }
+
+                revealObserver = new IntersectionObserver((entries) => {
+                     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
+                 }, { threshold: 0.1 });
+                 revealElements.forEach(el => revealObserver.observe(el));
+             }
+
+             function resetScrollReveal() {
+                 revealElements.forEach(el => {
+                     el.classList.remove('is-visible');
+                     // Re-observe if needed, or let setupScrollReveal handle it
+                     if (revealObserver) { revealObserver.unobserve(el); revealObserver.observe(el); }
+                 });
+                 // Re-setup observer might be needed if elements change drastically
+                 // setupScrollReveal(); // Uncomment if you face issues with elements not revealing after page change
+             }
+
 
             // --- Full Gallery View Switching ---
              if (viewMoreGalleryBtn && backToMainBtn && mainContentView && fullGalleryView) {
                 viewMoreGalleryBtn.addEventListener('click', () => {
-                    mainContentView.style.display = 'none';
-                    fullGalleryView.style.display = 'block';
-                    window.scrollTo(0, 0);
-                    filterGallery('all');
-                     filterButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.filter === 'all'));
+                    mainContentView.style.display = 'none'; fullGalleryView.style.display = 'block'; window.scrollTo(0, 0);
+                    filterGallery('all'); filterButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.filter === 'all'));
                 });
-
                 backToMainBtn.addEventListener('click', () => {
-                    fullGalleryView.style.display = 'none';
-                    mainContentView.style.display = 'block';
-                    showPage('galeria-page'); // Go back to the gallery *page*
+                    fullGalleryView.style.display = 'none'; mainContentView.style.display = 'block'; showPage('galeria-page');
                 });
             }
 
@@ -753,58 +871,73 @@
              function filterGallery(filter) {
                 const gridContainer = document.querySelector('.full-gallery-grid-container');
                  if(gridContainer) gridContainer.style.opacity = '1';
-
                  galleryItems.forEach(item => {
-                    const itemType = item.dataset.type;
-                    const itemSource = item.dataset.source;
-                    let show = false;
+                    const itemType = item.dataset.type; const itemSource = item.dataset.source; let show = false;
                     switch (filter) {
-                        case 'all': show = true; break;
-                        case 'photo': show = itemType === 'photo'; break;
-                        case 'video': show = itemType === 'video'; break;
-                        case 'user': show = itemSource === 'user'; break;
+                        case 'all': show = true; break; case 'photo': show = itemType === 'photo'; break;
+                        case 'video': show = itemType === 'video'; break; case 'user': show = itemSource === 'user'; break;
                         default: show = true;
                     }
-                     item.classList.toggle('hidden-filter', !show);
-                     item.style.display = ''; // Reset direct display style
+                     item.classList.toggle('hidden-filter', !show); item.style.display = '';
                  });
              }
-
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    const filterValue = button.dataset.filter;
-                    const gridContainer = document.querySelector('.full-gallery-grid-container');
+                    filterButtons.forEach(btn => btn.classList.remove('active')); button.classList.add('active');
+                    const filterValue = button.dataset.filter; const gridContainer = document.querySelector('.full-gallery-grid-container');
                     if(gridContainer) {
-                       gridContainer.style.opacity = '0';
-                       setTimeout(() => { filterGallery(filterValue); gridContainer.style.opacity = '1'; }, 150);
+                       gridContainer.style.opacity = '0'; setTimeout(() => { filterGallery(filterValue); gridContainer.style.opacity = '1'; }, 150);
                     } else { filterGallery(filterValue); }
                 });
             });
 
-            // --- Video Cover Click Logic (Placeholder) ---
-             videoCovers.forEach(cover => {
-                cover.addEventListener('click', () => {
-                    const videoItem = cover.closest('.video-item');
-                    const videoSrc = videoItem ? videoItem.dataset.videoSrc : null;
-                    console.log('Attempting to play video:', videoSrc);
+            // --- Lightbox Logic ---
+            function openLightbox(src) {
+                if (!lightboxOverlay || !lightboxImage) return;
+                lightboxImage.setAttribute('src', src); lightboxOverlay.classList.remove('hidden');
+                setTimeout(() => { lightboxOverlay.classList.add('active'); document.body.classList.add('lightbox-open'); }, 10);
+            }
+            function closeLightbox() {
+                 if (!lightboxOverlay) return;
+                 lightboxOverlay.classList.remove('active'); document.body.classList.remove('lightbox-open');
+                 setTimeout(() => { lightboxOverlay.classList.add('hidden'); lightboxImage.setAttribute('src', ''); }, 400);
+            }
+            lightboxTriggers.forEach(trigger => { trigger.addEventListener('click', (e) => { e.stopPropagation(); const imageUrl = trigger.getAttribute('src'); if (imageUrl) openLightbox(imageUrl); }); });
+            if (lightboxOverlay) { lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) closeLightbox(); }); }
+            if (lightboxCloseBtn) { lightboxCloseBtn.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); }); }
+            if (lightboxImage) { lightboxImage.addEventListener('click', (e) => e.stopPropagation()); }
 
-                    if (videoItem) {
-                        cover.style.display = 'none';
-                        const message = document.createElement('p');
-                        message.textContent = `Video placeholder for: ${videoSrc || 'unknown source'}`;
-                        message.style.padding = '2rem'; message.style.textAlign = 'center'; message.style.color = 'var(--color-text-secondary)';
-                        videoItem.appendChild(message);
-                         const titlePara = videoItem.querySelector('p');
-                         if(titlePara && titlePara !== message) { titlePara.style.display = 'none'; }
-                    }
-                    // NOTE: Replace placeholder logic with actual video embedding
-                });
+            // --- Video Cover Click Logic (Placeholder) ---
+             videoCoversInGrid.forEach(cover => {
+                if (!cover.querySelector('.lightbox-trigger')) {
+                     cover.addEventListener('click', () => {
+                        const videoItem = cover.closest('.video-item'); const videoSrc = videoItem ? videoItem.dataset.videoSrc : null;
+                        console.log('Attempting to play video (in grid):', videoSrc);
+                        if (videoItem) {
+                            cover.style.display = 'none'; const message = document.createElement('p');
+                            message.textContent = `Video placeholder for: ${videoSrc || 'unknown source'}`;
+                            message.style.padding = '2rem'; message.style.textAlign = 'center'; message.style.color = 'var(--color-text-secondary)';
+                            videoItem.appendChild(message); const titlePara = videoItem.querySelector('p');
+                            if(titlePara && titlePara !== message) { titlePara.style.display = 'none'; }
+                        }
+                    });
+                }
             });
 
-            // --- Initialize: Show only the 'inicio' page and set header ---
-             showPage('inicio-page');
+            // --- Initialize ---
+             // Check hash on initial load to show correct page or default to home
+            const initialHash = window.location.hash.substring(1);
+            const initialPageId = initialHash ? `${initialHash}-page` : 'inicio-page';
+             // Verify the initial page exists before showing
+            if (document.getElementById(initialPageId)) {
+                showPage(initialPageId, false); // Show initial page without pushing history
+                 // Set initial state for history API
+                 history.replaceState({ page: initialPageId }, '', `#${initialHash}`);
+             } else {
+                 showPage('inicio-page', false); // Default to home if hash is invalid
+                 history.replaceState({ page: 'inicio-page' }, '', '#inicio');
+             }
+             setupScrollReveal(); // Initial setup for scroll reveal
 
         });
     </script>
