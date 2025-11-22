@@ -4,228 +4,515 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RysonBl3nd</title>
-    <!-- Enlace a Google Fonts para la fuente 'Inter' -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Enlace a Tailwind CSS para utilidades básicas (importado desde CDN) -->
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Enlace a tu archivo CSS personalizado -->
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fuentes e Iconos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --primary: #ffffff;
+            --bg-dark: #0a0a0a;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--primary);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-oswald {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Animaciones de Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero con fondo oscuro y foto local */
+        .hero-bg {
+            /* Degradado oscuro (0.7 a 0.95) para asegurar legibilidad y estilo dark */
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.95)), url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Botón CTA */
+        .cta-btn {
+            border: 1px solid white;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            letter-spacing: 0.2em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            background: white;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        /* Soundcloud wrapper */
+        .iframe-wrapper iframe {
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Estilos para Videos Locales */
+        .local-video-container {
+            position: relative;
+            width: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .local-video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Menú Overlay */
+        .menu-link {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .menu-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            display: block;
+            margin-top: 5px;
+            right: 0;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .menu-link:hover::after {
+            width: 100%;
+            left: 0;
+            background: #fff;
+        }
+
+        /* Galería Tabs Activos */
+        .gallery-tab.active {
+            border-bottom: 2px solid white;
+            color: white;
+        }
+        .gallery-tab {
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        .gallery-tab:hover {
+            color: white;
+        }
+
+        /* Glitch effect */
+        .glitch-hover:hover {
+            text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9;
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white font-inter">
-    <!-- Barra de Navegación -->
-    <header class="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-90 z-50 shadow-lg transition-colors duration-300">
-        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <!-- Contenedor del Logo/Texto que cambia -->
-            <a href="#hero" id="main-logo-link" class="flex items-center transition-all duration-300">
-                <span id="logo-text" class="text-3xl font-bold text-teal-400 hover:text-teal-300">BIENVENIDOS</span>
-                <img id="logo-image" src="img/RysonBl3nd (sin fondo).png" alt="RysonBl3nd Logo" class="hidden h-7">
+<body class="antialiased">
+
+    <!-- UI PRINCIPAL -->
+    <main id="main-content">
+        
+        <!-- BARRA SUPERIOR -->
+        <header class="fixed top-0 left-0 w-full z-40 py-6 flex justify-center items-center bg-black/20 backdrop-blur-sm border-b border-white/5 transition-all duration-500">
+            <a href="#" class="text-3xl md:text-4xl font-bold tracking-[0.3em] font-oswald text-white hover:opacity-80 transition-opacity">
+                <img src="img/RysonBl3nd (sin fondo).png" alt="DJ ARTIST Logo" class="h-8 md:h-10 inline-block">
             </a>
+        </header>
+
+        <!-- BOTÓN DE MENÚ FLOTANTE -->
+        <div class="fixed bottom-8 right-8 z-50">
+            <button onclick="toggleMenu()" class="bg-white text-black w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center hover:scale-110 hover:bg-gray-200 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] group">
+                <i data-lucide="menu" class="w-6 h-6 md:w-8 md:h-8 transition-transform duration-300 group-hover:rotate-90" id="menu-icon"></i>
+            </button>
+        </div>
+
+        <!-- MENÚ OVERLAY -->
+        <div id="menu-overlay" class="fixed inset-0 bg-black/95 backdrop-blur-md z-40 flex items-center justify-center opacity-0 invisible transition-all duration-500">
+            <div class="flex flex-col gap-6 md:gap-10 text-center">
+                <a href="#bio" onclick="toggleMenu()" class="menu-link text-4xl md:text-7xl font-oswald font-bold text-white hover:text-gray-300 transition-all tracking-tighter">BIO</a>
+                <a href="#gallery" onclick="toggleMenu()" class="menu-link text-4xl md:text-7xl font-oswald font-bold text-white hover:text-gray-300 transition-all tracking-tighter">GALLERY</a>
+                <a href="#tour" onclick="toggleMenu()" class="menu-link text-4xl md:text-7xl font-oswald font-bold text-white hover:text-gray-300 transition-all tracking-tighter">TOUR DATES</a>
+                <a href="#sets" onclick="toggleMenu()" class="menu-link text-4xl md:text-7xl font-oswald font-bold text-white hover:text-gray-300 transition-all tracking-tighter">DJ SETS</a>
+                <a href="#merch" onclick="toggleMenu()" class="menu-link text-4xl md:text-7xl font-oswald font-bold text-white hover:text-gray-300 transition-all tracking-tighter">MERCH</a>
+                
+                <div class="flex justify-center gap-8 mt-8">
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors"><i data-lucide="instagram" class="w-8 h-8"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors"><i data-lucide="twitter" class="w-8 h-8"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors"><i data-lucide="youtube" class="w-8 h-8"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- HERO SECTION -->
+        <section class="hero-bg h-screen flex items-center justify-center relative">
+            <div class="text-center px-4 reveal active">
+                <p class="text-sm md:text-lg tracking-[0.8em] mb-4 uppercase text-gray-300">Desde Iztapalapa, para el mundo</p>
+                <h1 class="text-7xl md:text-[10rem] leading-none font-bold font-oswald text-shadow mb-8 glitch-hover cursor-default">
+                    NEVER STOP<br>REBELING
+                </h1>
+                <div class="flex justify-center gap-4 mt-8">
+                    <a href="#sets" class="cta-btn bg-white text-black hover:bg-black hover:text-white font-bold font-oswald uppercase">Escucha mis DJ SETS</a>
+                </div>
+            </div>
             
-            <!-- Menú para escritorio -->
-            <ul class="hidden md:flex space-x-6">
-                <li><a href="#about" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Sobre Mí</a></li>
-                <li><a href="#music" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Sets</a></li>
-                <li><a href="#gallery" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Galería</a></li>
-                <li><a href="#contact" class="text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Contacto</a></li>
-            </ul>
-
-            <!-- Botón de menú para móviles -->
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"></path></svg>
-                </button>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-white/50">
+                <i data-lucide="chevron-down" class="w-8 h-8"></i>
             </div>
-        </nav>
+        </section>
 
-        <!-- Menú desplegable para móviles -->
-        <div id="mobile-menu" class="hidden md:hidden">
-            <ul class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <li><a href="#about" class="block py-2 px-3 text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Sobre Mí</a></li>
-                <li><a href="#music" class="block py-2 px-3 text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Sets</a></li>
-                <li><a href="#gallery" class="block py-2 px-3 text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Galería</a></li>
-                <li><a href="#contact" class="block py-2 px-3 text-lg font-semibold hover:text-teal-400 transition-colors duration-300">Contacto</a></li>
-            </ul>
-        </div>
-    </header>
-
-    <!-- Sección Principal (Hero) con la foto del DJ y el fondo animado -->
-    <section id="hero" class="relative h-screen flex items-center justify-center text-center overflow-hidden">
-        <!-- Contenido principal del hero -->
-        <div class="relative z-10 flex flex-col items-center">
-            <div class="profile-photo-container rounded-full overflow-hidden shadow-2xl border-4 border-teal-400 transform transition-transform duration-500 hover:scale-105">
-                <!-- Asegúrate de reemplazar 'dj-profile.jpg' con la ruta de tu foto de perfil -->
-                <img src="img/yo.png" alt="Foto de perfil del DJ" class="w-full h-full object-cover">
-            </div>
-            <img src="img/RysonBl3nd (sin fondo).png" alt="Logo de DJ [Tu Nombre]"
-                 class="mt-8 mb-4 max-w-xs md:max-w-sm lg:max-w-md h-auto animate-fade-in-up drop-shadow-lg">
-            <p class="mt-4 text-2xl font-light text-gray-300 animate-fade-in-up delay-100">
-                Desde Iztapalapa, para el mundo!
-            </p>
-            <div class="mt-10 space-x-6">
-                <a href="#music" class="inline-block bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
-                    Escucha mis DJ Set
-                </a>
-                <a href="https://linktr.ee/rysonbl3nd?utm_source=linktree_profile_share&ltsid=f0e2e2b3-cdd4-4040-b5de-b9b4c9915a2a" class="inline-block bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
-                    Sígueme
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección Sobre Mí -->
-    <section id="about" class="py-20 bg-gray-800">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-5xl font-bold mb-12 text-teal-400 animate-slide-in-right">Sobre Mí</h2>
-            <div class="max-w-3xl mx-auto text-lg leading-relaxed text-gray-300 animate-fade-in-up delay-200">
-                <p class="mb-6">
-                    Soy RysonBl3nd, un productor con primeros pasos y DJ apasionado por la música electrónica, especializado en géneros como el Progressive House, Big Room, Techno y Hardstyle. Mi viaje musical comenzó en 2024, y desde entonces, me he dedicado a explorar y fusionar sonidos para crear experiencias únicas en cada set.
-                </p>
-                <p class="mb-6">
-                    He tenido el placer de tocar en EXORDIUM, OMDELU RECORDS, REVN4RT STREET SESSIONS y en especial tocar junto con el colectivo de DJs llamado, STAR EYES FESTIVAL. Mi objetivo es siempre conectar con la audiencia a través de la energía de la música, llevando a cada pista de baile una atmósfera inolvidable.
-                </p>
-                <p>
-                    Además de mis sets en vivo, me dedico a dejar mi propia huella en la escena electrónica. Te invito a explorar mi mundo.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección de Música (SoundCloud) -->
-    <section id="music" class="py-20 bg-gray-900">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-5xl font-bold mb-12 text-teal-400 animate-slide-in-left">SETS</h2>
-            <p class="text-lg text-gray-300 mb-12">
-                Explora mis últimos sets directamente desde SoundCloud.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Ejemplo de embed de SoundCloud para un SET -->
-                <div class="soundcloud-embed bg-gray-800 rounded-lg shadow-xl p-4 transform transition-transform duration-300 hover:scale-105 animate-fade-in-up">
-                    <h3 class="text-2xl font-semibold mb-4 text-teal-300">DJ SET Progressive House, Big Room/Techno & Hardstyle</h3>
-                    <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2045030729&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-                    <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/djrysonbl3nd" title="RysonBl3nd" target="_blank" style="color: #cccccc; text-decoration: none;">RysonBl3nd</a> · 
-                        <a href="https://soundcloud.com/djrysonbl3nd/rysonbl3nd-mix-progressive-house-big-roomtechno-hardstyle" title="RysonBl3nd - MIX Progressive House, Big Room/Techno &amp; Hardstyle" target="_blank" style="color: #cccccc; text-decoration: none;">RysonBl3nd - MIX Progressive House, Big Room/Techno &amp; Hardstyle</a></div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Ejemplo de embed de SoundCloud para un SET -->
-                <div class="soundcloud-embed bg-gray-800 rounded-lg shadow-xl p-4 transform transition-transform duration-300 hover:scale-105 animate-fade-in-up">
-                    <h3 class="text-2xl font-semibold mb-4 text-teal-300">DJ SET Big Room/Techno & Hardstyle</h3>
-                    <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2186575318&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/djrysonbl3nd" title="RysonBl3nd" target="_blank" style="color: #cccccc; text-decoration: none;">RysonBl3nd</a> · <a href="https://soundcloud.com/djrysonbl3nd/dj-set-techno-hardstyle" title="DJ SET Big Room/Techno Hardstyle" target="_blank" style="color: #cccccc; text-decoration: none;">DJ SET Big Room/Techno Hardstyle</a></div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Sección de Galería (Fotos y Videos) -->
-    <section id="gallery" class="py-20 bg-gray-800">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-5xl font-bold mb-6 text-teal-400 animate-slide-in-right">Galería de Momentos</h2>
-            <p class="text-lg text-gray-300 mb-8">
-                Una mirada a mis presentaciones, sesiones de estudio y momentos detrás de escena.
-            </p>
-
-            <!-- Contenedor de Pestañas -->
-            <div class="flex justify-center mb-10">
-                <button id="show-photos-btn" class="gallery-tab-btn active-tab">Fotos</button>
-                <button id="show-videos-btn" class="gallery-tab-btn">Videos</button>
-            </div>
-
-            <!-- Contenedor de la Galería de Fotos -->
-            <div id="photo-gallery">
-                <div class="collage-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up">
-                        <img src="img/RYSONterraza.jpg" alt="Descripción de la foto 1" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                        <div class="overlay"><span class="text-white text-xl font-semibold">Ver Foto</span></div>
+        <!-- BIO SECTION -->
+        <section id="bio" class="min-h-screen flex items-center bg-black relative overflow-hidden py-20 border-b border-white/5">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-zinc-900/30 -skew-x-12 hidden md:block"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <div class="order-2 md:order-1 reveal">
+                        <img src="img/yo.png" alt="DJ Profile" class="w-full grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl rounded-sm opacity-90">
                     </div>
-                    <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-300">
-                        <img src="img/RysonSS.jpg" alt="Descripción de la foto 3" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                        <div class="overlay"><span class="text-white text-xl font-semibold">Ver Foto</span></div>
-                    </div>
-                    <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-300">
-                        <img src="img/Omdelu.jpg" alt="Descripción de la foto 3" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                        <div class="overlay"><span class="text-white text-xl font-semibold">Ver Foto</span></div>
-                    </div>
-                    <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-300">
-                        <img src="img/RysonUTOPIA.jpg" alt="Descripción de la foto 3" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                        <div class="overlay"><span class="text-white text-xl font-semibold">Ver Foto</span></div>
+                    <div class="order-1 md:order-2 reveal">
+                        <h2 class="text-4xl md:text-6xl font-bold mb-8">MI HISTORIA</h2>
+                        <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                            DJ mexicano en camino a la producción, con la aspiración de destacar entre las figuras más influyentes de la música electrónica. Mi trayectoria inició con una pasión por el mix, que ha evolucionado hacia el sueño de crear mis propios sonidos y dejar una huella en la industria.
+                        </p>
+                        <a href="#" class="text-white border-b border-white pb-1 hover:text-gray-400 hover:border-gray-400 transition-colors uppercase tracking-widest text-sm">...</a>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Contenedor de la Galería de Videos (oculto por defecto) -->
-            <div id="video-gallery" class="hidden">
-                <div class="collage-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                     <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-200">
-                        <video class="w-full h-full object-cover"><source src="videos/OmdeluR.mp4" type="video/mp4"></video>
-                        <div class="overlay"><span class="text-white text-xl font-semibold">Reproducir Video</span></div>
+        <!-- GALLERY SECTION -->
+        <section id="gallery" class="py-24 bg-zinc-950 relative border-b border-white/5">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col items-center mb-12 reveal">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8 text-center">GALERÍA</h2>
+                    
+                    <!-- Controles de subdivisión -->
+                    <div class="flex gap-8 text-lg md:text-xl font-oswald tracking-widest">
+                        <button onclick="switchGallery('photos')" id="tab-photos" class="gallery-tab active pb-2 uppercase">Fotos</button>
+                        <button onclick="switchGallery('videos')" id="tab-videos" class="gallery-tab pb-2 uppercase">Videos</button>
                     </div>
-                    <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-200">
-                        <video class="w-full h-full object-cover"><source src="videos/V1.mp4" type="video/mp4"></video>
-                        <div class="overlay"><span class="text-white text-xl font-semibold">Reproducir Video</span></div>
+                </div>
+
+                <!-- Subdivision: FOTOS LOCALES (Placeholders) -->
+                <div id="gallery-photos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 reveal">
+                    <!-- Simulación de fotos locales. Reemplaza 'src' con tus rutas locales ej: 'assets/img/foto1.jpg' -->
+                    <div class="group relative overflow-hidden aspect-square cursor-pointer bg-zinc-900">
+                        <img src="img/RysonZOCALO.jpg" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <i data-lucide="maximize" class="text-white w-8 h-8"></i>
+                        </div>
                     </div>
-                    <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-500">
-                        <video class="w-full h-full object-cover"><source src="videos/RYSON.mp4" type="video/mp4"></video>
-                        <div class="overlay"><span class="text-white text-xl font-semibold">Reproducir Video</span></div>
+                    <div class="group relative overflow-hidden aspect-square cursor-pointer bg-zinc-900">
+                        <img src="img/Omdelu.jpg" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <i data-lucide="maximize" class="text-white w-8 h-8"></i>
+                        </div>
                     </div>
-                    <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-200">
-                        <video class="w-full h-full object-cover"><source src="videos/exordium.mp4" type="video/mp4"></video>
-                        <div class="overlay"><span class="text-white text-xl font-semibold">Reproducir Video</span></div>
+                    <div class="group relative overflow-hidden aspect-square cursor-pointer bg-zinc-900">
+                        <img src="img/RysonSS.jpg" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <i data-lucide="maximize" class="text-white w-8 h-8"></i>
+                        </div>
                     </div>
-                    <div class="gallery-item relative overflow-hidden rounded-lg shadow-lg group cursor-pointer animate-fade-in-up delay-200">
-                        <video class="w-full h-full object-cover"><source src="videos/RysonUTOPIA.mp4" type="video/mp4"></video>
-                        <div class="overlay"><span class="text-white text-xl font-semibold">Reproducir Video</span></div>
+                    <div class="group relative overflow-hidden aspect-square cursor-pointer bg-zinc-900">
+                        <img src="img/RYSONterraza.jpg" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <i data-lucide="maximize" class="text-white w-8 h-8"></i>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden aspect-square cursor-pointer bg-zinc-900">
+                        <img src="img/RysonUTOPIA2.png" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <i data-lucide="maximize" class="text-white w-8 h-8"></i>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden aspect-square cursor-pointer bg-zinc-900">
+                        <img src="img/RysonIPN.jpg" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <i data-lucide="maximize" class="text-white w-8 h-8"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subdivision: VIDEOS LOCALES (Usando etiqueta <video>) -->
+                <div id="gallery-videos" class="hidden grid-cols-1 md:grid-cols-2 gap-8 reveal">
+                    <!-- Video 1 -->
+                    <div class="local-video-container">
+                        <!-- Reemplaza 'poster' con tu miniatura local y 'src' con tu video local -->
+                        <video controls poster="">
+                            <source src="videos/exordium.mp4" type="video/mp4">
+                            Tu navegador no soporta la etiqueta de video.
+                        </video>
+                        <div class="p-4">
+                            <h3 class="text-xl font-oswald">EXORDIUM</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">AGOSTO 2024 </p>
+                        </div>
+                    </div>
+
+                    <!-- Video 2 -->
+                    <div class="local-video-container">
+                        <video controls poster="">
+                            <source src="videos/OmdeluR.mp4" type="video/mp4">
+                            Tu navegador no soporta la etiqueta de video.
+                        </video>
+                        <div class="p-4">
+                            <h3 class="text-xl font-oswald">OMDELU RECORDS</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">AGOSTO 2024</p>
+                        </div>
+                    </div>
+
+                    <!-- Video 3 -->
+                    <div class="local-video-container">
+                        <video controls poster="">
+                            <source src="videos/RYSON.mp4" type="video/mp4">
+                            Tu navegador no soporta la etiqueta de video.
+                        </video>
+                        <div class="p-4">
+                            <h3 class="text-xl font-oswald">TERRAZA UTOPIA IXTAPALCALLI</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">JULIO 2025</p>
+                        </div>
+                    </div>
+
+                    <!-- Video 4 -->
+                    <div class="local-video-container">
+                        <video controls poster="">
+                            <source src="videos/RysonUTOPIA.mp4" type="video/mp4">
+                            Tu navegador no soporta la etiqueta de video.
+                        </video>
+                        <div class="p-4">
+                            <h3 class="text-xl font-oswald">AUDITORIO UTOPIA IXTAPALCALLI</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">SEPTIEMBRE 2025</p>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Modal para ver imágenes/videos en grande -->
-            <div id="gallery-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
-                <div class="modal-content relative bg-gray-900 rounded-lg p-4 max-w-4xl max-h-screen overflow-auto">
-                    <button class="close-modal absolute top-4 right-4 text-white text-3xl font-bold hover:text-red-500">&times;</button>
-                    <img id="modal-image" src="" alt="Imagen grande" class="max-w-full max-h-[80vh] object-contain mx-auto hidden">
-                    <video id="modal-video" src="" controls class="max-w-full max-h-[80vh] object-contain mx-auto hidden"></video>
+        <!-- TOUR DATES SECTION -->
+        <section id="tour" class="py-24 bg-black">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center reveal">PROXIMOS EVENTOS</h2>
+                
+                <div class="max-w-4xl mx-auto space-y-1">
+                    <!-- Date Item 1 -->
+                    <div class="group relative bg-zinc-900 p-6 md:p-8 hover:bg-zinc-800 transition-all duration-300 cursor-pointer reveal">
+                        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                            <div class="text-center md:text-left">
+                                <div class="text-2xl font-bold font-oswald">FEB 07</div>
+                                <div class="text-gray-500 text-sm uppercase tracking-widest">2026</div>
+                            </div>
+                            <div class="flex-grow md:pl-12 text-center md:text-left">
+                                <h3 class="text-2xl md:text-3xl font-bold">CIUDAD DE MÉXICO, MÉXICO</h3>
+                                <p class="text-gray-400 uppercase">UTOPIA MEYEHUALCO</p>
+                            </div>
+                            <button class="border border-white px-6 py-2 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+                                Flyer
+                            </button>
+                        </div>
+                    </div>
+
+                    
+                </div>
+                
+            
+            </div>
+        </section>
+
+        <!-- SOUNDCLOUD SECTION -->
+        <section id="sets" class="py-24 bg-zinc-950 relative border-t border-white/5">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-900/20 to-transparent pointer-events-none"></div>
+
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
+                    <div>
+                        <h2 class="text-4xl md:text-6xl font-bold mb-2">DJ SETS</h2>
+                        <p class="text-gray-400 tracking-widest uppercase">Ultimos mixes via Soundcloud</p>
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                        <a href="https://soundcloud.com/djrysonbl3nd" target="_blank" class="flex items-center gap-2 text-orange-500 hover:text-orange-400 transition-colors font-bold uppercase text-sm tracking-wider">
+                            <i data-lucide="cloud" class="w-5 h-5"></i> Visita mi Soundcloud
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Set 1 -->
+                    <div class="iframe-wrapper reveal">
+                        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2045030729&color=%23491e96&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/djrysonbl3nd" title="RysonBl3nd" target="_blank" style="color: #cccccc; text-decoration: none;">RysonBl3nd</a> · <a href="https://soundcloud.com/djrysonbl3nd/rysonbl3nd-mix-progressive-house-big-roomtechno-hardstyle" title="DJ SET Progressive House, Big Room/Techno &amp; Hardstyle" target="_blank" style="color: #cccccc; text-decoration: none;">DJ SET Progressive House, Big Room/Techno &amp; Hardstyle</a></div>
+                        <div class="mt-2">
+                            <h3 class="text-xl font-bold font-oswald">DJ SET PROGRESSIVE HOUSE, BIG ROOM/TECHNO & HARDSTYLE</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">2025</p>
+                        </div>
+                    </div>
+
+                    <!-- Set 2 -->
+                    <div class="iframe-wrapper reveal">
+                        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2186575318&color=%23491e96&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/djrysonbl3nd" title="RysonBl3nd" target="_blank" style="color: #cccccc; text-decoration: none;">RysonBl3nd</a> · <a href="https://soundcloud.com/djrysonbl3nd/dj-set-techno-hardstyle" title="DJ SET Big Room/Techno Hardstyle" target="_blank" style="color: #cccccc; text-decoration: none;">DJ SET Big Room/Techno Hardstyle</a></div>
+                        <div class="mt-2">
+                            <h3 class="text-xl font-bold font-oswald">DJ SET BIG ROOM/TECHNO & HARDSTYLE</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">2025</p>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Sección de Contacto -->
-    <section id="contact" class="py-20 bg-gray-900">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-5xl font-bold mb-12 text-teal-400 animate-slide-in-left">Contacto</h2>
-            <p class="text-lg text-gray-300 mb-8">
-                ¿Interesado en una colaboración, booking o simplemente saludar? ¡Envíame un mensaje!
-            </p>
-            <form class="max-w-xl mx-auto bg-gray-800 p-8 rounded-lg shadow-xl animate-fade-in-up delay-200">
-                <div class="mb-6 text-left">
-                    <label for="name" class="block text-gray-300 text-sm font-bold mb-2">Nombre:</label>
-                    <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 border-gray-600 text-white" placeholder="Tu Nombre" required>
-                </div>
-                <div class="mb-6 text-left">
-                    <label for="email" class="block text-gray-300 text-sm font-bold mb-2">Email:</label>
-                    <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 border-gray-600 text-white" placeholder="tu.email@ejemplo.com" required>
-                </div>
-                <div class="mb-6 text-left">
-                    <label for="message" class="block text-gray-300 text-sm font-bold mb-2">Mensaje:</label>
-                    <textarea id="message" name="message" rows="6" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 border-gray-600 text-white" placeholder="Escribe tu mensaje aquí..." required></textarea>
-                </div>
-                <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
-                    Enviar Mensaje
-                </button>
-            </form>
-        </div>
-    </section>
+        <!-- MERCH SECTION -->
+        <section id="merch" class="h-[60vh] relative flex items-center justify-center bg-fixed bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070&auto=format&fit=crop');">
+            <div class="absolute inset-0 bg-black/60"></div>
+            <div class="relative z-10 text-center reveal">
+                <h2 class="text-4xl font-bold mb-2 text-gray-200">SIGUEME</h2>
+                <p class="text-6xl font-oswald font-bold mb-8 text-white">EN TODAS MIS REDES</p>
+                <a href="https://linktr.ee/rysonbl3nd?utm_source=linktree_profile_share&ltsid=6cdd4094-0b02-4424-87b7-afdeddf462d5" class="cta-btn bg-black border-black text-white hover:bg-white hover:text-black font-oswald">LINKTREE</a>
+            </div>
+        </section>
 
-    <!-- Pie de Página -->
-    <footer class="py-8 bg-gray-900 text-gray-400 text-center text-sm border-t border-gray-700">
-        <p>&copy; 2025 RysonBl3nd. Todos los derechos reservados.</p>
-        <p>Desarrollado por Donovan Eduardo Contreras Diaz</p>
-    </footer>
+        <!-- FOOTER -->
+        <footer class="bg-zinc-950 pt-20 pb-10 border-t border-zinc-900">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                    
+                    <!-- Newsletter -->
+                    <div class="col-span-1 md:col-span-2">
+                        <h3 class="font-oswald text-xl mb-6">JOIN THE NEWSLETTER</h3>
+                        <form class="flex flex-col sm:flex-row gap-4">
+                            <input type="email" placeholder="YOUR EMAIL ADDRESS" class="bg-transparent border border-zinc-700 p-4 w-full text-white focus:border-white outline-none transition-colors">
+                            <button class="bg-white text-black font-bold px-8 py-4 hover:bg-gray-200 transition-colors uppercase tracking-widest">
+                                Join
+                            </button>
+                        </form>
+                        <p class="text-xs text-gray-500 mt-4">By signing up you agree to our Privacy Policy.</p>
+                    </div>
 
-    <!-- Enlace a tu archivo JavaScript personalizado -->
-    <script src="script.js"></script>
+                    <!-- Links 1 -->
+                    <div>
+                        <h3 class="font-oswald text-xl mt-8 mb-6 text-gray-400">CORREO ELECTRÓNICO</h3>
+                        <p class="font-bold text-lg mb-1">rysonb3@gmail.com</p>
+                    </div>
+
+                    <!-- Socials -->
+                    <div class="flex flex-col justify-start">
+                        <h3 class="font-oswald text-xl mb-6 text-gray-400">SIGUEME</h3>
+                        <div class="flex gap-6">
+                            <a href="https://www.instagram.com/rysonbl3nd/" class="hover:text-gray-400 transition-transform hover:scale-110"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                            
+                            <a href="https://www.facebook.com/djrysonbl3nd" class="hover:text-gray-400 transition-transform hover:scale-110"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-zinc-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 uppercase tracking-widest">
+                    <p>&copy; 2025 RysonBl3nd.</p>
+                    <div class="flex gap-6 mt-4 md:mt-0">
+                        <a href="#" class="hover:text-gray-400">Privacy Policy</a>
+                        <a href="#" class="hover:text-gray-400">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // Inicializar iconos
+        lucide.createIcons();
+
+        // Simple Reveal on Scroll
+        function handleScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(handleScroll, 100);
+        });
+
+        window.addEventListener('scroll', handleScroll);
+
+        // Menu Móvil toggle
+        function toggleMenu() {
+            const overlay = document.getElementById('menu-overlay');
+            const icon = document.getElementById('menu-icon');
+            const body = document.body;
+            
+            if (overlay.classList.contains('opacity-0')) {
+                overlay.classList.remove('opacity-0', 'invisible');
+                icon.setAttribute('data-lucide', 'x');
+                body.style.overflow = 'hidden';
+            } else {
+                overlay.classList.add('opacity-0', 'invisible');
+                icon.setAttribute('data-lucide', 'menu');
+                body.style.overflow = '';
+            }
+            lucide.createIcons();
+        }
+
+        // Logic para Galería (Fotos / Videos)
+        function switchGallery(type) {
+            const photosDiv = document.getElementById('gallery-photos');
+            const videosDiv = document.getElementById('gallery-videos');
+            const tabPhotos = document.getElementById('tab-photos');
+            const tabVideos = document.getElementById('tab-videos');
+
+            if (type === 'photos') {
+                photosDiv.classList.remove('hidden');
+                photosDiv.classList.add('grid');
+                videosDiv.classList.add('hidden');
+                videosDiv.classList.remove('grid');
+                
+                tabPhotos.classList.add('active');
+                tabVideos.classList.remove('active');
+            } else {
+                videosDiv.classList.remove('hidden');
+                videosDiv.classList.add('grid');
+                photosDiv.classList.add('hidden');
+                photosDiv.classList.remove('grid');
+                
+                tabVideos.classList.add('active');
+                tabPhotos.classList.remove('active');
+            }
+            // Re-trigger reveal for new content
+            setTimeout(handleScroll, 50);
+        }
+    </script>
 </body>
 </html>
-
