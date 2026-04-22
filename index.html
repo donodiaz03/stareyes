@@ -884,11 +884,11 @@
                 headerTitle.style.display = isHomePage ? 'block' : 'none';
 
                 if (updateHistory) {
-                     const cleanHash = pageId.replace('-page', '');
+                     const targetUrl = pageId === 'inicio-page' ? window.location.pathname + window.location.search : `#${pageId.replace('-page', '')}`;
                      if (window.history.state === null || window.history.state.page !== pageId) {
-                         history.pushState({ page: pageId }, '', `#${cleanHash}`);
-                     } else if (window.location.hash !== `#${cleanHash}`) {
-                         history.replaceState({ page: pageId }, '', `#${cleanHash}`);
+                         history.pushState({ page: pageId }, '', targetUrl);
+                     } else if ((pageId === 'inicio-page' && window.location.hash) || (pageId !== 'inicio-page' && window.location.hash !== targetUrl)) {
+                         history.replaceState({ page: pageId }, '', targetUrl);
                      }
                 }
 
@@ -1057,7 +1057,8 @@
                  initialPageId = `${initialHash}-page`;
              }
             showPage(initialPageId, false);
-             history.replaceState({ page: initialPageId }, '', `#${initialPageId.replace('-page', '')}`);
+             const initTargetUrl = initialPageId === 'inicio-page' ? window.location.pathname + window.location.search : `#${initialPageId.replace('-page', '')}`;
+             history.replaceState({ page: initialPageId }, '', initTargetUrl);
 
              setupScrollReveal();
 
