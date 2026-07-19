@@ -1754,12 +1754,10 @@
             <section id="inicio-page" class="page-section active">
                 <div class="hero">
                     <!-- Background Video -->
-                    <!-- OPTIMIZACIÓN: Se agregó poster para mostrar imagen mientras carga y preload metadata -->
-                    <video autoplay loop muted playsinline id="hero-video-bg" poster="img/poster.jpg"
-                        preload="metadata">
-                        <!-- ### CAMBIA ESTA RUTA por la ruta a tu video ### -->
-                        <source src="img/banner.mp4" type="video/mp4">
-                        <!-- Fallback -->
+                    <!-- Se retrasa la carga del video para no bloquear la primera vista -->
+                    <video loop muted playsinline id="hero-video-bg" poster="img/STAREYES.png" preload="none"
+                        data-loaded="false">
+                        <source data-src="img/banner.mp4" type="video/mp4">
                         Tu navegador no soporta videos HTML5. Considera usar la imagen de fondo estática.
                     </video>
                     <!-- End Background Video -->
@@ -1799,31 +1797,36 @@
                         <button type="button" class="dj-card reveal-on-scroll" data-name="RysonBl3nd"
                             data-image="img/RYSON.png"
                             data-description="RysonBl3nd es uno de los pilares del colectivo, con una propuesta que une Hardstyle, Hardtechno, Big Room/Techno y Progressive House para llevar la energía a otro nivel.">
-                            <img src="img/RYSON.jpg" loading="lazy" alt="DJ RysonBl3nd" class="dj-image">
+                            <img src="img/RYSON.jpg" loading="lazy" decoding="async" fetchpriority="low"
+                                alt="DJ RysonBl3nd" class="dj-image">
                             <h3>RysonBl3nd</h3>
                         </button>
                         <button type="button" class="dj-card reveal-on-scroll" data-name="DJ AZLAN"
                             data-image="img/LEO.jpg"
                             data-description="DJ AZLAN destaca por su versatilidad y su sonido vibrante, mezclando EDM, Hardstyle y la esencia inspirada en los ritmos que marcan la identidad del colectivo.">
-                            <img src="img/LEO.jpg" loading="lazy" alt="DJ AZLAN" class="dj-image">
+                            <img src="img/LEO.jpg" loading="lazy" decoding="async" fetchpriority="low"
+                                alt="DJ AZLAN" class="dj-image">
                             <h3>DJ AZLAN</h3>
                         </button>
                         <button type="button" class="dj-card reveal-on-scroll" data-name="NEOX"
                             data-image="img/NEOX.jpg"
                             data-description="NEOX es un productor y DJ mexicano especializado en Riddim Dubstep, creando sonidos oscuros, pesados y con una energía impactante que conecta con el público más exigente.">
-                            <img src="img/NEOX.jpg" loading="lazy" alt="NEOX" class="dj-image">
+                            <img src="img/NEOX.jpg" loading="lazy" decoding="async" fetchpriority="low"
+                                alt="NEOX" class="dj-image">
                             <h3>NEOX</h3>
                         </button>
                         <button type="button" class="dj-card reveal-on-scroll" data-name="S0IK"
                             data-image="img/S0IK.jpg"
                             data-description="S0IK aporta fuerza y contundencia con un enfoque en Dubstep y Riddim, construyendo sets con un ritmo pesado y una presencia muy marcada en la pista.">
-                            <img src="img/S0IK.jpg" loading="lazy" alt="S0IK" class="dj-image">
+                            <img src="img/S0IK.jpg" loading="lazy" decoding="async" fetchpriority="low"
+                                alt="S0IK" class="dj-image">
                             <h3>S0IK</h3>
                         </button>
                         <button type="button" class="dj-card reveal-on-scroll" data-name="DJ ALEXANDER"
                             data-image="img/ALEXANDER.jpg"
                             data-description="DJ ALEXANDER trae una energía latina y de alto impacto, mezclando ritmos clásicos y contemporáneos con un estilo que mueve a la pista desde el primer minuto.">
-                            <img src="img/ALEXANDER.jpg" loading="lazy" alt="DJ ALEXANDER" class="dj-image">
+                            <img src="img/ALEXANDER.jpg" loading="lazy" decoding="async" fetchpriority="low"
+                                alt="DJ ALEXANDER" class="dj-image">
                             <h3>DJ ALEXANDER</h3>
                         </button>
                     </div>
@@ -2227,6 +2230,8 @@
             const filterButtons = document.querySelectorAll('#full-gallery-view .filter-btn');
             const galleryItems = document.querySelectorAll('#full-gallery-view .gallery-item');
             const videosInGrid = document.querySelectorAll('.video-item video');
+            const heroVideo = document.getElementById('hero-video-bg');
+            const heroVideoSource = heroVideo ? heroVideo.querySelector('source') : null;
             // Remove starsBg related code
 
             const lightboxOverlay = document.getElementById('lightbox-overlay');
@@ -2251,6 +2256,31 @@
             // Ocultar loader cuando el DOM esté listo + pequeño retardo por estética
             // Ya no esperamos a que cargue todo el video pesado
             setTimeout(hideLoader, 500);
+
+            function loadHeroVideo() {
+                if (!heroVideo || heroVideo.dataset.loaded === 'true') return;
+                if (heroVideoSource && heroVideoSource.dataset.src) {
+                    heroVideoSource.setAttribute('src', heroVideoSource.dataset.src);
+                    heroVideo.load();
+                    heroVideo.dataset.loaded = 'true';
+                }
+            }
+
+            if (heroVideo) {
+                if (window.innerWidth <= 768) {
+                    heroVideo.removeAttribute('autoplay');
+                    heroVideo.pause();
+                } else {
+                    const activateVideo = () => {
+                        loadHeroVideo();
+                        window.removeEventListener('pointerdown', activateVideo);
+                        window.removeEventListener('touchstart', activateVideo);
+                    };
+                    window.addEventListener('pointerdown', activateVideo, { once: true });
+                    window.addEventListener('touchstart', activateVideo, { once: true });
+                    setTimeout(loadHeroVideo, 1800);
+                }
+            }
 
             // Fallback: Si el DOM carga rapidisimo, asegurar que window load tambien verifique
             window.addEventListener('load', hideLoader);
