@@ -637,8 +637,6 @@
 
         /* --- Hero Section --- */
         .hero {
-            /* Remove background image */
-            /* background: url('img/banner.jpg') no-repeat center center/cover; */
             min-height: 90vh;
             display: flex;
             align-items: center;
@@ -648,22 +646,10 @@
             overflow: hidden;
             padding: 4rem 0;
             background-color: var(--color-dark-bg);
-            /* Fallback bg color */
-        }
-
-        #hero-video-bg {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* Cover the area */
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            /* Behind overlay and content */
-            pointer-events: none;
-            /* Make sure it's not clickable */
+            background-image: url('img/starsbanner.jpg');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
         }
 
         .hero::before {
@@ -697,9 +683,107 @@
         }
 
         .hero-content .hero-logo-img {
-            max-width: 70%;
+            width: min(70%, 420px);
             height: auto;
-            margin-bottom: 1.5rem;
+            margin: 0 auto 1.5rem;
+            filter: drop-shadow(0 0 24px rgba(0, 255, 255, 0.18));
+            animation: logo-float 5s ease-in-out infinite;
+        }
+
+        @keyframes logo-float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            color: var(--color-accent-primary);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .hero-eyebrow span {
+            width: 2rem;
+            height: 1px;
+            background: currentColor;
+            opacity: 0.7;
+        }
+
+        .hero-signals {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin: -0.5rem auto 0;
+        }
+
+        .hero-signals span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 999px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(6px);
+        }
+
+        .hero-signals i {
+            color: var(--color-accent-secondary);
+        }
+
+        .hero-scroll-cue {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+            margin-top: 2.25rem;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            animation: scroll-cue 2s ease-in-out infinite;
+        }
+
+        .hero-scroll-cue i {
+            color: var(--color-accent-primary);
+        }
+
+        @keyframes scroll-cue {
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-content .hero-logo-img,
+            .hero-scroll-cue {
+                animation: none;
+            }
         }
 
         .hero-content p {
@@ -710,6 +794,19 @@
             margin: 0 auto 2rem;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
             /* Add shadow for readability */
+        }
+
+        .hero-content .hero-eyebrow,
+        .hero-content .hero-signals span,
+        .hero-content .hero-scroll-cue {
+            font-family: var(--font-title);
+        }
+
+        .hero-content .hero-eyebrow {
+            max-width: none;
+            margin: 0 auto 1.25rem;
+            color: var(--color-accent-primary);
+            font-size: 0.72rem;
         }
 
 
@@ -1720,7 +1817,7 @@
             <!-- Modified Link to contain both logo and title -->
             <a href="#inicio-page" class="logo-link" id="logo-home-link"> <!-- Ensure href points to the page id -->
                 <img src="img/STAREYES.png" alt="Logo de Star Eyes Festival" class="logo-img">
-                <span class="header-title hidden">Bienvenidos</span> <!-- Initially hidden -->
+                <span class="header-title hidden">Star Eyes</span> <!-- Initially hidden -->
             </a>
             <!-- Garrix Style Menu Button -->
             <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false"
@@ -1753,20 +1850,17 @@
             <!-- Hero Section (Acts as the initial page) -->
             <section id="inicio-page" class="page-section active">
                 <div class="hero">
-                    <!-- Background Video -->
-                    <!-- Se retrasa la carga del video para no bloquear la primera vista -->
-                    <video loop muted playsinline id="hero-video-bg" poster="img/STAREYES.png" preload="none"
-                        data-loaded="false">
-                        <source data-src="img/banner.mp4" type="video/mp4">
-                        Tu navegador no soporta videos HTML5. Considera usar la imagen de fondo estática.
-                    </video>
-                    <!-- End Background Video -->
-
                     <div class="hero-content">
-                        <!-- Logo principal, loading eager porque es importante -->
+                                    <p class="hero-eyebrow"><span></span> Colectivo de música electrónica · CDMX <span></span></p>
+                                    <!-- Logo principal, loading eager porque es importante -->
                         <img src="img/LOGOSE.png" alt="Logo Principal Star Eyes" class="hero-logo-img">
                         <p>Un colectivo de DJs de música electrónica fusionando energía y movimiento. Listos para
                             electrizar tu evento con sets inolvidables.</p>
+                                    <div class="hero-signals" aria-label="Áreas de Star Eyes">
+                                        <span><i class="fas fa-compact-disc" aria-hidden="true"></i> DJs</span>
+                                        <span><i class="fas fa-wave-square" aria-hidden="true"></i> DJ Sets</span>
+                                        <span><i class="fas fa-bolt" aria-hidden="true"></i> Eventos</span>
+                                    </div>
                         <!-- Banner Navigation Buttons -->
                         <div class="banner-nav-buttons">
                             <button class="btn banner-nav-btn" data-page="djs-page"><i class="fas fa-users"></i>
@@ -1784,6 +1878,10 @@
                                 class="btn linktree-btn-banner">
                                 <i class="fas fa-share-alt" aria-hidden="true"></i> Siguenos!
                             </a>
+                        </div>
+                        <div class="hero-scroll-cue" aria-hidden="true">
+                            <span>Explora el colectivo</span>
+                            <i class="fas fa-arrow-down"></i>
                         </div>
                     </div>
                 </div>
@@ -1917,7 +2015,7 @@
                                     class="year">2026</span></div>
                             <div class="event-details">
                                 <h3>PROXIMAMENTE</h3>
-                                <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <strong>Lugar: UTOPIA MIXIHUCA, CDMX</p>
+                                <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <strong>Lugar:</strong> UTOPIA MIXIHUCA, CDMX</p>
                                 <p><i class="fas fa-clock" aria-hidden="true"></i> <strong>Hora:</strong>--</p>
                                 <a href="#" target="_blank" class="btn tertiary-btn"><i class="fas fa-info-circle"
                                         aria-hidden="true"></i>--</a>
@@ -2230,9 +2328,6 @@
             const filterButtons = document.querySelectorAll('#full-gallery-view .filter-btn');
             const galleryItems = document.querySelectorAll('#full-gallery-view .gallery-item');
             const videosInGrid = document.querySelectorAll('.video-item video');
-            const heroVideo = document.getElementById('hero-video-bg');
-            const heroVideoSource = heroVideo ? heroVideo.querySelector('source') : null;
-            // Remove starsBg related code
 
             const lightboxOverlay = document.getElementById('lightbox-overlay');
             const lightboxImage = document.getElementById('lightbox-image');
@@ -2254,33 +2349,7 @@
             };
 
             // Ocultar loader cuando el DOM esté listo + pequeño retardo por estética
-            // Ya no esperamos a que cargue todo el video pesado
             setTimeout(hideLoader, 500);
-
-            function loadHeroVideo() {
-                if (!heroVideo || heroVideo.dataset.loaded === 'true') return;
-                if (heroVideoSource && heroVideoSource.dataset.src) {
-                    heroVideoSource.setAttribute('src', heroVideoSource.dataset.src);
-                    heroVideo.load();
-                    heroVideo.dataset.loaded = 'true';
-                }
-            }
-
-            if (heroVideo) {
-                if (window.innerWidth <= 768) {
-                    heroVideo.removeAttribute('autoplay');
-                    heroVideo.pause();
-                } else {
-                    const activateVideo = () => {
-                        loadHeroVideo();
-                        window.removeEventListener('pointerdown', activateVideo);
-                        window.removeEventListener('touchstart', activateVideo);
-                    };
-                    window.addEventListener('pointerdown', activateVideo, { once: true });
-                    window.addEventListener('touchstart', activateVideo, { once: true });
-                    setTimeout(loadHeroVideo, 1800);
-                }
-            }
 
             // Fallback: Si el DOM carga rapidisimo, asegurar que window load tambien verifique
             window.addEventListener('load', hideLoader);
